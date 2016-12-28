@@ -7,31 +7,53 @@ package Control;
 
 import Model.GameState;
 import View.View;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Hugo
  */
-public class Controller {
-    private final GameState state;
-    private final View view;
-    private final Input input;
+public class Controller implements Observer{
     
-    public Controller()
+    private static GameState gameState;
+    private static Input input;
+    
+    
+    private static final Controller INSTANCE = new Controller();
+    
+    public static Controller getInstance()
     {
-        state = new GameState();
-        view = new View();
+        return INSTANCE;
+    }
+    
+    private Controller()
+    {
+    }
+    
+    
+    public static void main(String[] args)
+    {
+        gameState = GameState.getInstance();
+        gameState.addObserver(View.getInstance());
         input = new Input();
+        input.addObserver(Controller.getInstance());
+        input.getInput();
+        // getInput() calls an infinite loop to get the input and send it 
+        // to the Controller via notifyObserver()
     }
     
-    private void Initialize()
-    {
+
+    @Override
+    public void update(Observable inputObj, Object arg) {
         
+        Dir d = ((Input)inputObj).getDir();
+        if(d != null)
+            gameState.updateGameState(d);
+        else
+            System.exit(0);
     }
     
-    private void MainLoop()
-    {
-        
-    }
     
 }
+
