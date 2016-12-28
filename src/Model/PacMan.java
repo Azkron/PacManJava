@@ -14,23 +14,34 @@ import Control.Dir;
  */
 public class PacMan implements Character{
 
-    int x, y;
+    private static boolean superPacMan;
     
-    boolean superPacMan;
+    private static final PacMan INSTANCE = new PacMan();
+    
+    public static PacMan getInstance()
+    {
+        return INSTANCE;
+    }
+    
+    private PacMan()
+    {
+        // IS SET TO PRIVATE TO PREVENT INSTANTIATION
+    }
+    
+    public static void makeSuper()
+    {
+        superPacMan = true;
+    }
+    
+    public static boolean getSuper()
+    {
+        return superPacMan;
+    }
+    
     
     @Override
     public void move(Dir d) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
     }
 
     @Override
