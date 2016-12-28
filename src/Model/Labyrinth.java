@@ -12,11 +12,18 @@ import java.util.List;
  *
  * @author Hugo
  */
+
 public class Labyrinth {
     private ArrayList<ArrayList<Case>> lab;
-    private ArrayList<ArrayList<Type>> labView = new ArrayList<>();
     
-    public Labyrinth()
+    private static final Labyrinth INSTANCE = new Labyrinth();;
+    
+    public static Labyrinth getInstance()
+    {
+        return INSTANCE;
+    }
+    
+    private Labyrinth()
     {
         initLab();
     }
@@ -101,7 +108,7 @@ public class Labyrinth {
         {
             case 0 : return null;
             case 1 : return new Wall();
-            case 2 : return new PacMan();
+            case 2 : return PacMan.getInstance();
             case 3 : return new Phantom();
             case 4 : return new PacGum();
             case 5 : return new Fruit();

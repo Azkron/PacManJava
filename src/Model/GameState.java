@@ -5,29 +5,56 @@
  */
 package Model;
 
+import Control.Dir;
+import Control.Type;
+import java.util.ArrayList;
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import java.util.Observable;
 
 /**
  *
  * @author Hugo
  */
-public class GameState implements Observable {
-    private int score, lives;
-
-    @Override
-    public void addListener(InvalidationListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+public class GameState extends Observable {
+    private static int score, lives;
+    
+    private Labyrinth lab;
+    
+    private static final GameState INSTANCE = new GameState();
+    
+    private PacMan pacMan;
+    
+    public static GameState getInstance()
+    {   
+        return INSTANCE;
     }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    private GameState()
+    {
+        lab = Labyrinth.getInstance();
+        pacMan = PacMan.getInstance();
+    }
+    
+    public void updateGameState(Dir d)
+    {
+        pacMan.move(d);
+        setChanged();
+        notifyObservers();
+    }
+    
+    public ArrayList<ArrayList<Type>> getLabView()
+    {
+        return lab.getLabView();
     }
     
     public int getScore()
     {
         return score;
+    }
+    
+    public static void addScore(int s)
+    {
+        score += s;
     }
     
     public int getLives()
@@ -37,17 +64,17 @@ public class GameState implements Observable {
     
     public int getPhantoms()
     {
-        return Phantom.total;
+        return Phantom.getTotal();
     }
     
     public int getFruits()
     {
-        return Fruit.total;
+        return Fruit.getTotal();
     }
     
     public int getPacGum()
     {
-        return PacGum.total;
+        return PacGum.getTotal();
     }
     
 }

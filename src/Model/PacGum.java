@@ -13,22 +13,29 @@ import Control.Type;
  */
 public class PacGum implements Consumable{
 
-    int x, y;
-    static int total;
+    static private int total;
+    
+    PacGum()
+    {
+        ++total;
+    }
+    
+    public static int getTotal()
+    {
+        return total;
+    }
+    
     @Override
     public void Consume() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        GameState.addScore(5);
+        --total;
+    }
+    
+    private void addScore()
+    {
+        GameState.addScore(5);
     }
 
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
 
     @Override
     public Type getType() {

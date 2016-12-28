@@ -13,17 +13,6 @@ import Control.Type;
  */
 public class Wall implements Case{
 
-    int x, y;
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
     @Override
     public Type getType() {
         return Type.WALL;

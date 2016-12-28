@@ -48,10 +48,14 @@ public class Controller implements Observer{
     public void update(Observable inputObj, Object arg) {
         
         Dir d = ((Input)inputObj).getDir();
+        
+            System.out.println("exit");
         if(d != null)
             gameState.updateGameState(d);
         else
+        {
             System.exit(0);
+        }
     }
     
     

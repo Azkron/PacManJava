@@ -12,10 +12,6 @@ import Control.Type;
  */
 public interface Case {
     
-    public int getX();
-    
-    public int getY();
-    
     public Type getType();
     
 }

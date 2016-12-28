@@ -7,6 +7,7 @@ package Model;
 
 import Control.Type;
 import Control.Dir;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,23 +15,33 @@ import Control.Dir;
  */
 public class Phantom implements Character{
 
-    int x, y;
-    static int total;
+    private static ArrayList<Phantom> phantoms = new ArrayList<>();
+    
+    Phantom()
+    {
+        phantoms.add(this);
+    }
+    
+    public void kill()
+    {
+        phantoms.remove(this);
+    }
+    
+    public static ArrayList<Phantom> getPhantoms()
+    {
+        return phantoms;
+    }
+    
+    public static int getTotal()
+    {
+        return phantoms.size();
+    }
+    
     @Override
     public void move(Dir d) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
+    
     @Override
     public Type getType() {
         return Type.PHANTOM;

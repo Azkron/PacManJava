@@ -13,21 +13,27 @@ import Control.Type;
  */
 public class Fruit implements Consumable{
 
-    int x,y;
-    static int total;
+    private static int total;
+    
+    Fruit()
+    {
+        ++total;
+    }
+    
+    public static int getTotal()
+    {
+        return total;
+    }
+    
     @Override
     public void Consume() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        makeSuper();
+        total -= 1;
     }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
+    
+    private void makeSuper()
+    {
+        PacMan.makeSuper();
     }
 
     @Override
