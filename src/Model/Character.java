@@ -5,10 +5,12 @@
  */
 package Model;
 
+import Control.Dir;
 /**
  *
  * @author Hugo
  */
-public interface Character {
+public interface Character extends Case {
     
+    public void move(Dir d);
 }

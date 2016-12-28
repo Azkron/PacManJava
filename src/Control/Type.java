@@ -9,6 +9,6 @@ package Control;
  *
  * @author Hugo
  */
-public enum LabCase {
-    
+public enum Type {
+    PACMAN, PHANTOM, PACGUM, FRUIT, MUSHROOM, WALL, EMPTY
 }

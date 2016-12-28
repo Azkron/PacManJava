@@ -9,6 +9,7 @@ package Model;
  *
  * @author Hugo
  */
-public interface Consumable {
+public interface Consumable extends Case{
     
+    public void Consume();
 }

@@ -5,10 +5,34 @@
  */
 package Model;
 
+import Control.Type;
+
 /**
  *
  * @author Hugo
  */
-public class Fruit {
+public class Fruit implements Consumable{
+
+    int x,y;
+    static int total;
+    @Override
+    public void Consume() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.FRUIT;
+    }
     
 }

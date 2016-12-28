@@ -4,11 +4,18 @@
  * and open the template in the editor.
  */
 package Model;
+import Control.Type;
 
 /**
  *
  * @author Hugo
  */
 public interface Case {
+    
+    public int getX();
+    
+    public int getY();
+    
+    public Type getType();
     
 }
