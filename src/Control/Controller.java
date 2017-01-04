@@ -34,16 +34,20 @@ public class Controller implements Observer{
     
     public static void main(String[] args)
     {
-        gameState = GameState.getInstance();
-        gameState.addObserver(View.getInstance());
-        gameState.updateGameState(Dir.NONE);
-        input = new Input();
-        input.addObserver(Controller.getInstance());
+        Controller.getInstance().initialize();
         input.getInput();
         // getInput() calls an infinite loop to get the input and send it 
         // to the Controller via notifyObserver()
     }
     
+    private void initialize()
+    {
+        gameState = GameState.getInstance();
+        gameState.addObserver(View.getInstance());
+        gameState.updateGameState(Dir.NONE);
+        input = new Input();
+        input.addObserver(Controller.getInstance());
+    }
 
     @Override
     public void update(Observable inputObj, Object arg) {
