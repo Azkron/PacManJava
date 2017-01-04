@@ -68,6 +68,7 @@ public class View implements Observer{
     }
     
     public void displayInfo() {
+        System.out.println("");
         System.out.println("-------------------------------------------------------");
         System.out.print("Lives: " +GameState.getLives());
         System.out.print("   Score: " +GameState.getScore());
