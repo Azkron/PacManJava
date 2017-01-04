@@ -13,4 +13,35 @@ import Control.Dir;
 public interface Character extends Case {
     
     public void move(Dir d);
+    
+    public int getX();
+    
+    public int getY();
+    
+    public void kill();
+    
+    default int getNextY(Dir d) {
+        int nextY = getY();
+        switch(d){
+            case UP:
+                return --nextY;
+            case DOWN:
+                return ++nextY;
+            default: 
+                return nextY;
+        }
+    }
+    
+    default int getNextX(Dir d) {
+        int nextX = getX();
+        switch(d){
+            case LEFT:
+                return --nextX;
+            case RIGHT:
+                return ++nextX;
+            default: 
+                return nextX;
+        }
+    }
+    
 }

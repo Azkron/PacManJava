@@ -34,7 +34,7 @@ public class Input extends Observable{
             System.out.println("Please input a direction (zqsd, wqsd) or \"x\" to exit");
             String c = sc.nextLine().toLowerCase();
             dir = keyboard.getDir(c);
-            if(c.equals("x") || dir != null)
+            if(c.equals("x") || dir != Dir.NONE)
             {
                 setChanged();
                 notifyObservers();
@@ -62,5 +62,25 @@ public class Input extends Observable{
         }
     }
     
+    
+    public enum Keyboard {
+
+        QWERTY("w", "s", "a", "d"), AZERT("z", "s", "q", "d");
+
+        private TreeMap<String, Dir> keyMap = new TreeMap<>();
+
+        Keyboard(String up, String down, String left, String right)
+        {
+            keyMap.put(up,Dir.UP);
+            keyMap.put(down,Dir.DOWN);
+            keyMap.put(left,Dir.LEFT);
+            keyMap.put(right,Dir.RIGHT);
+        }
+
+        public Dir getDir(String s)
+        {
+            return keyMap.getOrDefault(s, Dir.NONE);
+        }
+    }
     
 }

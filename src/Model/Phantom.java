@@ -14,11 +14,14 @@ import java.util.ArrayList;
  * @author Hugo
  */
 public class Phantom implements Character{
-
+    
+    private int x, y; 
     private static ArrayList<Phantom> phantoms = new ArrayList<>();
     
-    Phantom()
+    Phantom(int x, int y)
     {
+        this.x = x;
+        this.y = y;
         phantoms.add(this);
     }
     
@@ -46,5 +49,16 @@ public class Phantom implements Character{
     public Type getType() {
         return Type.PHANTOM;
     }
+    
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+    
     
 }

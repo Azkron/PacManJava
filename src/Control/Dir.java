@@ -10,5 +10,5 @@ package Control;
  * @author Hugo
  */
 public enum Dir {
-    UP, DOWN, LEFT, RIGHT
+    UP, DOWN, LEFT, RIGHT, NONE
 }

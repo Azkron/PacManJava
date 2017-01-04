@@ -16,38 +16,39 @@ import java.util.Observable;
  * @author Hugo
  */
 public class GameState extends Observable {
-    private static int score, lives;
+    private static int score, lives = 2;
     
     private Labyrinth lab;
     
-    private static final GameState INSTANCE = new GameState();
+    private static GameState INSTANCE;
     
-    private PacMan pacMan;
     
     public static GameState getInstance()
     {   
+        if(INSTANCE == null)
+            INSTANCE = new GameState();
+        
         return INSTANCE;
     }
     
     private GameState()
     {
         lab = Labyrinth.getInstance();
-        pacMan = PacMan.getInstance();
     }
     
     public void updateGameState(Dir d)
     {
-        pacMan.move(d);
+        PacMan.getInstance().move(d);
         setChanged();
         notifyObservers();
-    }
+    } 
     
     public ArrayList<ArrayList<Type>> getLabView()
     {
         return lab.getLabView();
     }
     
-    public int getScore()
+    public static int getScore()
     {
         return score;
     }
@@ -57,24 +58,27 @@ public class GameState extends Observable {
         score += s;
     }
     
-    public int getLives()
+    public static int getLives()
     {
         return lives;
     }
     
-    public int getPhantoms()
+    public static int getPhantoms()
     {
         return Phantom.getTotal();
     }
     
-    public int getFruits()
+    public static int getFruits()
     {
         return Fruit.getTotal();
     }
     
-    public int getPacGum()
+    public static int getPacGum()
     {
         return PacGum.getTotal();
     }
     
+    public static void looseLife() {
+        --lives;
+    }
 }

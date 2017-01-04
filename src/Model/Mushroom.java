@@ -15,12 +15,12 @@ public class Mushroom implements Consumable{
 
     @Override
     public void Consume() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // NOT YET IMPLENTED IN THIS ITERATION
     }
 
     @Override
     public Type getType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Type.MUSHROOM;
     }
     
 }

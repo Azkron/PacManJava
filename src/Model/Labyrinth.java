@@ -15,8 +15,9 @@ import java.util.List;
 
 public class Labyrinth {
     private ArrayList<ArrayList<Case>> lab;
+    private int xSize, ySize;
     
-    private static final Labyrinth INSTANCE = new Labyrinth();;
+    private static final Labyrinth INSTANCE = new Labyrinth();
     
     public static Labyrinth getInstance()
     {
@@ -41,15 +42,18 @@ public class Labyrinth {
     public ArrayList<ArrayList<Type>> getLabView()
     {
         ArrayList<ArrayList<Type>> labView = new ArrayList<>();
-        for(int y = 0; y < lab.size(); ++y)
+        
+        for(ArrayList<Case> a : lab)
         {
-            labView.add(new ArrayList<>());
-            for(int x = 0; x < lab.get(y).size(); ++x)
-            {
-                Type t = get(x,y).getType();
-                labView.get(y).add(t);
-            }
+            ArrayList<Type> l = new ArrayList<>();
+            labView.add(l);
+            for(Case c : a)
+                if(c != null)
+                    l.add(c.getType());
+                else
+                    l.add(Type.EMPTY);
         }
+        
         
         return labView;
     }
@@ -67,8 +71,8 @@ public class Labyrinth {
             {1, 1, 1, 1, 1, 4, 1, 4, 4, 4, 4, 1, 4, 4, 4, 4, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 4, 1, 4, 1, 0, 0, 0, 0, 0, 1, 4, 1, 4, 1, 1, 1, 1, 1},
-            {1, 4, 4, 4, 4, 4, 6, 4, 1, 0, 0, 0, 0, 0, 1, 4, 6, 4, 4, 4, 4, 4, 1},
+            {1, 1, 1, 1, 1, 4, 1, 4, 1, 3, 0, 0, 0, 3, 1, 4, 1, 4, 1, 1, 1, 1, 1},
+            {1, 4, 4, 4, 4, 4, 6, 4, 1, 3, 0, 0, 0, 3, 1, 4, 6, 4, 4, 4, 4, 4, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1},
@@ -84,18 +88,21 @@ public class Labyrinth {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         };
         
+        xSize = tab[0].length;
+        ySize = tab.length;
+        
         lab = new ArrayList<>();
-        for(int y = 0; y < tab.length; ++y)
+        for(int y = 0; y < ySize; ++y)
         {
             lab.add(new ArrayList<>());
-            for(int x = 0; x < tab[y].length; ++x)
+            for(int x = 0; x < xSize; ++x)
             {
-                lab.get(y).add(intToCase(tab[y][x]));
+                lab.get(y).add(caseFromTab(tab[y][x], x, y));
             }
         }
     }
     
-    private Case intToCase(int i)
+    private Case caseFromTab(int c, int x, int y)
     {
         //0 : rien
         //1 : mur
@@ -104,16 +111,24 @@ public class Labyrinth {
         //4 : gomme
         //5 : fruit
         //6 : champignon
-        switch(i)
+        switch(c)
         {
             case 0 : return null;
             case 1 : return new Wall();
-            case 2 : return PacMan.getInstance();
-            case 3 : return new Phantom();
+            case 2 : return new PacMan(x,y, this);
+            case 3 : return new Phantom(x, y);
             case 4 : return new PacGum();
             case 5 : return new Fruit();
             case 6 : return new Mushroom();
             default : return null;
         }
+    }
+    
+    public int getXsize() {
+        return xSize;
+    }
+    
+    public int getYsize() {
+        return ySize;
     }
 }

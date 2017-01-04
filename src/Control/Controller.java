@@ -36,6 +36,7 @@ public class Controller implements Observer{
     {
         gameState = GameState.getInstance();
         gameState.addObserver(View.getInstance());
+        gameState.updateGameState(Dir.NONE);
         input = new Input();
         input.addObserver(Controller.getInstance());
         input.getInput();
@@ -49,11 +50,24 @@ public class Controller implements Observer{
         
         Dir d = ((Input)inputObj).getDir();
         
-            System.out.println("exit");
-        if(d != null)
-            gameState.updateGameState(d);
-        else
+        if(d != Dir.NONE)
         {
+            gameState.updateGameState(d);
+            checkGameOver();
+        }
+        else
+            System.exit(0);
+    }
+    
+    private void checkGameOver() {
+        if(gameState.getLives() == 0)
+        {
+            System.out.println("No more lives. GAME-OVER!!!!!!!");
+            System.exit(0);
+        }
+        else if(gameState.getPhantoms() == 0)
+        {
+            System.out.println("No more phantoms. YOU WIN!!!!!!! CONGRATS");
             System.exit(0);
         }
     }
