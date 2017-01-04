@@ -13,6 +13,7 @@ Then the Controller calls Input.getInput() which runs an infinite loop:
     1 – Input checks for input from the Player and notifies it´s observers (the Controller).
 
     2 - In it´s update() the Controller calls GameState.updateGameState().
+
     3 - In updateGameState() GameState handles the movement and notifies it´s observers (the View).
 
     4 - In it´s update() the View gets a copy of the Labyrinth calling GameState.getLabView() and draws it
