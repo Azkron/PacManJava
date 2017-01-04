@@ -17,7 +17,7 @@ import java.util.TreeMap;
 public class Input extends Observable{
     
     
-    Keyboard keyboard = null;
+    private Keyboard keyboard = null;
     
     private Dir dir = null;
     
@@ -62,24 +62,5 @@ public class Input extends Observable{
         }
     }
     
-    
-    private  enum Keyboard {
-        QWERTY("w", "s", "a", "d"), AZERT("z", "s", "q", "d");
-    
-        private TreeMap<String, Dir> keyMap = new TreeMap<>();
-        
-        Keyboard(String up, String down, String left, String right)
-        {
-            keyMap.put(up,Dir.UP);
-            keyMap.put(down,Dir.DOWN);
-            keyMap.put(left,Dir.LEFT);
-            keyMap.put(right,Dir.RIGHT);
-        }
-        
-        public Dir getDir(String s)
-        {
-            return keyMap.getOrDefault(s, null);
-        }
-    };
     
 }
