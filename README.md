@@ -9,7 +9,7 @@ In it´s main() the Controller creates all the objects, sets itself as an observ
 observer of GameState.
 
 Then the Controller calls Input.getInput() which runs an infinite loop:
-{
+
     1 – Input checks for input from the Player and notifies it´s observers (the Controller).
 
     2 - In it´s update() the Controller calls GameState.updateGameState().
@@ -21,4 +21,3 @@ Then the Controller calls Input.getInput() which runs an infinite loop:
 
     5 - The Controller calls System.Exit() if the conditions for Game Over or Win are met or if the player types
         “x”.
-}
