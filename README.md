@@ -5,18 +5,18 @@ This is the main loop of the game, but we have also added it with all the analys
 
 Main Game Loop
 
-In it´s main() the Controller creates all the objects, sets itself as an observer of Input and sets View as an
+In its main() the Controller creates all the objects, sets itself as an observer of Input and sets View as an
 observer of GameState.
 
 Then the Controller calls Input.getInput() which runs an infinite loop:
 
-    1 – Input checks for input from the Player and notifies it´s observers (the Controller).
+    1 – Input checks for input from the Player and notifies its observers (the Controller).
 
-    2 - In it´s update() the Controller calls GameState.updateGameState().
+    2 - In its update() the Controller calls GameState.updateGameState().
 
-    3 - In updateGameState() GameState handles the movement and notifies it´s observers (the View).
+    3 - In updateGameState() GameState handles the movement and notifies its observers (the View).
 
-    4 - In it´s update() the View gets a copy of the Labyrinth calling GameState.getLabView() and draws it
+    4 - In its update() the View gets a copy of the Labyrinth calling GameState.getLabView() and draws it
         based on that.
 
     5 - The Controller calls System.Exit() if the conditions for Game Over or Win are met or if the player types
