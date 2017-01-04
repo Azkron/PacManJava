@@ -1,4 +1,4 @@
-Most of the commits has been done by me (Hugo Barbachano) but this is because he has used my PC too so he was logged in my account instead of his.
+Most of the commits has been done by me (Hugo Barbachano) but this is because Tidiane Toure has used my PC too so he was logged in my account instead of his.
 
 
 This is the main loop of the game, but we have also added it with all the analysis in AnalysisAndReadMe.pdf
