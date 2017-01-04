@@ -5,8 +5,11 @@
  */
 package View;
 
+import Control.Type;
 import java.util.Observable;
 import java.util.Observer;
+import Model.GameState;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +30,52 @@ public class View implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        drawLabyrinth((GameState) o);
+    }
+    
+    private void drawLabyrinth(GameState g) {
+        for(ArrayList<Type> a: g.getLabView()) {
+            System.out.println("");
+            for(Type t: a) {
+                drawType(t);
+            }
+        }
+        displayInfo();
+    }
+    
+    public void drawType(Type t) {
+        String s = "";
+        switch(t) 
+        {
+            case PACMAN : s = "O";
+                break;
+            case PHANTOM : s = "A";
+                break;
+            case PACGUM : s = "°";
+                break;
+            case FRUIT : s = "F";
+                break;
+            case MUSHROOM : s = "M";
+                break;
+            case WALL : s = "#";
+                break;
+            case EMPTY: s = " ";
+                break;
+            default : s = " ";
+                break;
+        }
+        System.out.print(s);
+    }
+    
+    public void displayInfo() {
+        System.out.println("-------------------------------------------------------");
+        System.out.print("Lives: " +GameState.getLives());
+        System.out.print("   Score: " +GameState.getScore());
+        System.out.print("   Phantoms: " +GameState.getPhantoms());
+        System.out.print("   Pac-Gums: " +GameState.getPacGum());
+        System.out.println("");
+        System.out.println("-------------------------------------------------------");
+        
     }
     
 }
