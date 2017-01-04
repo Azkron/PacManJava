@@ -102,7 +102,7 @@ public class Labyrinth {
         }
     }
     
-    private Case caseFromTab(int c, int x, int y)
+    private Case caseFromTab(int i, int x, int y)
     {
         //0 : rien
         //1 : mur
@@ -111,7 +111,7 @@ public class Labyrinth {
         //4 : gomme
         //5 : fruit
         //6 : champignon
-        switch(c)
+        switch(i)
         {
             case 0 : return null;
             case 1 : return new Wall();
