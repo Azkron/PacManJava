@@ -6,7 +6,7 @@
 package Control;
 
 import Model.GameState;
-import View.View;
+import View.ViewFX;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,6 +18,7 @@ public class ControllerFX implements Observer{
 
     private static GameState gameState;
     private static Input input;
+    private static ViewFX viewFX;
     
     
     private static final ControllerFX INSTANCE = new ControllerFX();
@@ -42,11 +43,13 @@ public class ControllerFX implements Observer{
     
     private void initialize()
     {
+        viewFX =  viewFX.getInstance();
+        
+        
         gameState = GameState.getInstance();
-        gameState.addObserver(View.getInstance());
+        gameState.addObserver(viewFX);
         gameState.updateGameState(Dir.NONE);
-        input = new Input();
-        input.addObserver(Controller.getInstance());
+        
     }
 
     @Override
