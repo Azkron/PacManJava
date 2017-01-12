@@ -7,6 +7,7 @@ package Model;
 import Control.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -71,8 +72,8 @@ public class Labyrinth {
             {1, 1, 1, 1, 1, 4, 1, 4, 4, 4, 4, 1, 4, 4, 4, 4, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 4, 1, 4, 1, 0, 0, 0, 0, 0, 1, 4, 1, 4, 1, 1, 1, 1, 1},
-            {1, 4, 4, 4, 4, 4, 6, 4, 1, 0, 0, 0, 0, 0, 1, 4, 6, 4, 4, 4, 4, 4, 1},
+            {1, 1, 1, 1, 1, 4, 1, 4, 1, 3, 0, 0, 0, 3, 1, 4, 1, 4, 1, 1, 1, 1, 1},
+            {1, 4, 4, 4, 4, 4, 6, 4, 1, 3, 0, 0, 0, 3, 1, 4, 6, 4, 4, 4, 4, 4, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 1},
@@ -100,6 +101,30 @@ public class Labyrinth {
                 lab.get(y).add(caseFromTab(tab[y][x], x, y));
             }
         }
+        
+        System.out.println(Phantom.getPhantoms());
+        for(Phantom p : Phantom.getPhantoms())
+        {
+            boolean placed = false;
+            Random r = new Random();
+            
+            while(!placed)
+            {
+                int x = r.nextInt(xSize), y = r.nextInt(ySize);
+                if(get(x,y) == null)
+                    placed = true;
+                else
+                {
+                    Type t = get(x,y).getType();
+                    
+                    if(t == Type.PACGUM || t == Type.FRUIT || t == Type.MUSHROOM)
+                        placed = true;
+                }
+                
+                if(placed)
+                    p.moveInLab(x,y);
+            }
+        }
     }
     
     private Case caseFromTab(int i, int x, int y)
@@ -116,7 +141,7 @@ public class Labyrinth {
             case 0 : return null;
             case 1 : return new Wall();
             case 2 : return new PacMan(x,y, this);
-            case 3 : return new Phantom(x, y);
+            case 3 : return new Phantom(x, y, this);
             case 4 : return new PacGum();
             case 5 : return new Fruit();
             case 6 : return new Mushroom();

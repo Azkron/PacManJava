@@ -15,13 +15,17 @@ import java.util.ArrayList;
  */
 public class Phantom implements Character{
     
-    private int x, y; 
+    private int x, y, startX, startY; 
     private static ArrayList<Phantom> phantoms = new ArrayList<>();
+    private Labyrinth lab;
     
-    Phantom(int x, int y)
+    Phantom(int x, int y, Labyrinth lab)
     {
-        this.x = x;
-        this.y = y;
+        this.lab = lab;
+        startX = x;
+        startY = y;
+        this.x = startX;
+        this.y = startY;
         phantoms.add(this);
     }
     
@@ -58,6 +62,27 @@ public class Phantom implements Character{
     @Override
     public int getY() {
         return y;
+    }
+    
+    @Override
+    public int getStartX() {
+        return startX;
+    }
+
+    @Override
+    public int getStartY() {
+        return startY;
+    }
+    
+    @Override
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public Labyrinth getLab() {
+        return lab;
     }
     
     

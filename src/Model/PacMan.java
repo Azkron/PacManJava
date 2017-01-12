@@ -94,18 +94,6 @@ public class PacMan implements Character{
                 
     }
     
-    public void moveToStart() {
-        moveInLab(startX, startY);
-    }
-    
-    public void moveInLab(int nextX, int nextY) {
-        
-        lab.set(x, y, null);
-        x = nextX;
-        y = nextY;
-        lab.set(x, y, this);
-    }
-    
     
     
 
@@ -123,11 +111,32 @@ public class PacMan implements Character{
     public int getY() {
         return y;
     }
+    
+    @Override
+    public int getStartX() {
+        return startX;
+    }
+
+    @Override
+    public int getStartY() {
+        return startY;
+    }
 
     @Override
     public void kill() {
         moveToStart();
         GameState.looseLife();
+    }
+
+    @Override
+    public Labyrinth getLab() {
+        return lab;
+    }
+
+    @Override
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
     
 }

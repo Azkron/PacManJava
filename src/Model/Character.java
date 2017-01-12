@@ -14,9 +14,13 @@ public interface Character extends Case {
     
     public void move(Dir d);
     
-    public int getX();
+    public Labyrinth getLab();
     
+    public int getX();
     public int getY();
+    public void setXY(int x, int y);
+    public int getStartX();
+    public int getStartY();
     
     public void kill();
     
@@ -42,6 +46,19 @@ public interface Character extends Case {
             default: 
                 return nextX;
         }
+    }
+    
+    
+    
+    default public void moveToStart() {
+        moveInLab(getStartX(), getStartY());
+    }
+    
+    default public void moveInLab(int nextX, int nextY) {
+        
+        getLab().set(getX(), getY(), null);
+        setXY(nextX, nextY);
+        getLab().set(getX(), getY(), this);
     }
     
 }
