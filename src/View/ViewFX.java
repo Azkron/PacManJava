@@ -31,9 +31,9 @@ public class ViewFX extends Application implements Observer{
     private final Image imgPhantom = new Image("file:images/enemy_normal.png");
     private final Image imgFruit = new Image("file:images/fruit.png");
     private final Image imgPacMan = new Image("file:images/pacman.png");
-    private final Image imgpacman_invincible = new Image("file:images/pacman_invincible.png");
-    private final Image img = new Image("file:images/boule-de-gomme.png");
-    private final Image img = new Image("file:images/boule-de-gomme.png");
+    private final Image imgPacmanInvincible = new Image("file:images/pacman_invincible.png");
+    private final Image imgBouleDeGomme = new Image("file:images/boule-de-gomme.png");
+    private final Image imgPacmanNormal = new Image("file:images/pacman_normal.png");
     private final Image img = new Image("file:images/boule-de-gomme.png");
 
     
