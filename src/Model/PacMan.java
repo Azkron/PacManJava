@@ -69,6 +69,7 @@ public class PacMan implements Character{
                         if(getSuper()) {
                             ((Phantom) c).kill();
                             moveInLab(nextX, nextY);
+                            GameState.addScore(20);
                         }
                         else {
                             kill();
@@ -94,7 +95,7 @@ public class PacMan implements Character{
     }
     
     public void moveToStart() {
-        moveInLab(x, y);
+        moveInLab(startX, startY);
     }
     
     public void moveInLab(int nextX, int nextY) {

@@ -27,14 +27,10 @@ public class PacGum implements Consumable{
     
     @Override
     public void Consume() {
-        GameState.addScore(5);
+        GameState.addScore(1);
         --total;
     }
     
-    private void addScore()
-    {
-        GameState.addScore(5);
-    }
 
 
     @Override
