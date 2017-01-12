@@ -24,6 +24,7 @@ import javafx.stage.Stage;
  * @author 2610titoure
  */
 public class ViewFX extends Application implements Observer{
+    
     private static final ViewFX instance = new ViewFX();
     
     private final Image imgPacGum = new Image("file:images/boule-de-gomme.png");
@@ -34,6 +35,8 @@ public class ViewFX extends Application implements Observer{
     private final Image imgPacmanInvincible = new Image("file:images/pacman_invincible.png");
     private final Image imgBouleDeGomme = new Image("file:images/boule-de-gomme.png");
     private final Image imgPacmanNormal = new Image("file:images/pacman_normal.png");
+    private final Image imgWall = new Image("file:images/wall.png");
+    private final Image imgWhite = new Image("file:images/white.gif");
     private final Image img = new Image("file:images/boule-de-gomme.png");
 
     
@@ -68,23 +71,24 @@ public class ViewFX extends Application implements Observer{
     
     public void drawType(Type t, int x, int y) {
         String s = "";
+        Image tmp;
         switch(t) 
         {
-            case PACMAN : s = "O";
+            case PACMAN : tmp = imgPacmanNormal;
                 break;
-            case PHANTOM : s = "A";
+            case PHANTOM : tmp = imgPhantom;
                 break;
-            case PACGUM : s = "°";
+            case PACGUM : tmp = imgPacGum;
                 break;
-            case FRUIT : s = "F";
+            case FRUIT : tmp = imgFruit;
                 break;
-            case MUSHROOM : s = "M";
+            case MUSHROOM : tmp = imgMushroom;
                 break;
-            case WALL : s = "#";
+            case WALL : tmp = imgWall;
                 break;
-            case EMPTY: s = " ";
+            case EMPTY: tmp = imgWhite;
                 break;
-            default : s = " ";
+            default : tmp = imgWhite;
                 break;
         }
         System.out.print(s);
@@ -117,14 +121,10 @@ public class ViewFX extends Application implements Observer{
                     TAILLE, 
                     TAILLE
                 );
-
             }
         };
-
         root.getChildren().add(canvas);
-
         Scene scene = new Scene(root, 400, 200);
-
         primaryStage.setTitle("Exemple d'affichage d'une Image sur un Canvas");
         primaryStage.setScene(scene);
         primaryStage.show();
