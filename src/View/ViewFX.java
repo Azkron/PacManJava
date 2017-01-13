@@ -60,12 +60,12 @@ public class ViewFX extends Application implements Observer{
     }
     
     private void drawLabyrinth(GameState g) {
-        ArrayList<ArrayList<Type>> lab = g.getLabView();
+        Type[][] lab = g.getLabView();
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for(int y=0; y < lab.size(); y++ ) 
-            for(int x=0; x < lab.get(y).size(); x++ ) 
-                drawType(lab.get(y).get(x), x, y);
+        for(int y=0; y < lab.length; y++ ) 
+            for(int x=0; x < lab[y].length; x++ ) 
+                drawType(lab[y][x], x, y);
         displayInfo();
     }
     

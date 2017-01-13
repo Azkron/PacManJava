@@ -15,7 +15,7 @@ import java.util.Random;
  */
 
 public class Labyrinth {
-    private ArrayList<ArrayList<Case>> lab;
+    private Case[][] lab;
     private int xSize, ySize;
     
     private static final Labyrinth INSTANCE = new Labyrinth();
@@ -30,30 +30,29 @@ public class Labyrinth {
         initLab();
     }
     
-    public void set(int x, int y, Case c)
-    {
-        lab.get(y).set(x, c);
-    }
-    
     public Case get(int x, int y)
     {
-        return lab.get(y).get(x);
+        return lab[y][x];
     }
     
-    public ArrayList<ArrayList<Type>> getLabView()
+    public void set(int x, int y, Case c)
     {
-        ArrayList<ArrayList<Type>> labView = new ArrayList<>();
+        lab[y][x] = c;
+    }
+    
+    public Type[][] getLabView()
+    {
+        Type[][] labView = new Type[ySize][xSize];
         
-        for(ArrayList<Case> a : lab)
-        {
-            ArrayList<Type> l = new ArrayList<>();
-            labView.add(l);
-            for(Case c : a)
+        for(int y = 0; y < ySize; ++y)
+            for(int x = 0; x < xSize; ++x)
+            {
+                Case c = get(x,y);
                 if(c != null)
-                    l.add(c.getType());
+                    labView[y][x] = c.getType();
                 else
-                    l.add(Type.EMPTY);
-        }
+                    labView[y][x] = Type.EMPTY;
+            }
         
         
         return labView;
@@ -92,17 +91,16 @@ public class Labyrinth {
         xSize = tab[0].length;
         ySize = tab.length;
         
-        lab = new ArrayList<>();
+        lab = new Case[ySize][xSize];
         for(int y = 0; y < ySize; ++y)
-        {
-            lab.add(new ArrayList<>());
             for(int x = 0; x < xSize; ++x)
-            {
-                lab.get(y).add(caseFromTab(tab[y][x], x, y));
-            }
-        }
+                lab[y][x] = caseFromTab(tab[y][x], x, y);
         
-        System.out.println(Phantom.getPhantoms());
+        randomizePhantoms();
+    }
+    
+    private void randomizePhantoms()
+    {
         for(Phantom p : Phantom.getPhantoms())
         {
             boolean placed = false;
@@ -125,6 +123,7 @@ public class Labyrinth {
                     p.moveInLab(x,y);
             }
         }
+        
     }
     
     private Case caseFromTab(int i, int x, int y)

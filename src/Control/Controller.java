@@ -37,7 +37,8 @@ public class Controller implements Observer{
         Controller.getInstance().initialize();
         input.getInput();
         // getInput() calls an infinite loop to get the input and send it 
-        // to the Controller via notifyObserver()
+        // to the Controller via notifyObserver()q
+        
     }
     
     private void initialize()

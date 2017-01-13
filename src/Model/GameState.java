@@ -43,7 +43,7 @@ public class GameState extends Observable {
         notifyObservers();
     } 
     
-    public ArrayList<ArrayList<Type>> getLabView()
+    public Type[][] getLabView()
     {
         return lab.getLabView();
     }
