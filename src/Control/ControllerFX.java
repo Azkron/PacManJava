@@ -43,11 +43,11 @@ public class ControllerFX implements Observer{
     
     private void initialize()
     {
-        viewFX =  viewFX.getInstance();        
         gameState = GameState.getInstance();
-        gameState.addObserver(viewFX);
+        gameState.addObserver(viewFX.getInstance());
         gameState.updateGameState(Dir.NONE);
-        
+        input = new Input();
+        input.addObserver(ControllerFX.getInstance()); 
     }
 
     @Override

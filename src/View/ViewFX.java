@@ -25,8 +25,6 @@ import javafx.stage.Stage;
  */
 public class ViewFX extends Application implements Observer{
     
-    private static final ViewFX instance = new ViewFX();
-    
     private final Image imgPacGum = new Image("file:images/boule-de-gomme.png");
     private final Image imgMushroom = new Image("file:images/champignon.png");
     private final Image imgPhantom = new Image("file:images/enemy_normal.png");
@@ -38,18 +36,19 @@ public class ViewFX extends Application implements Observer{
     private final Image imgWall = new Image("file:images/wall.png");
     private final Image imgWhite = new Image("file:images/white.gif");
     private final Image img = new Image("file:images/boule-de-gomme.png");
-
     
     private final Canvas canvas = new Canvas();
-    GraphicsContext gc = canvas.getGraphicsContext2D();
     private static final int TAILLE = 20;
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    
+    private static final ViewFX instance = new ViewFX(); 
     
     public static ViewFX getInstance()
     {
         return instance;
     }
     
-    private ViewFX()
+    public ViewFX()
     {
         
     }
@@ -70,7 +69,6 @@ public class ViewFX extends Application implements Observer{
     }
     
     public void drawType(Type t, int x, int y) {
-        String s = "";
         Image tmp;
         switch(t) 
         {
@@ -91,7 +89,7 @@ public class ViewFX extends Application implements Observer{
             default : tmp = imgWhite;
                 break;
         }
-        System.out.print(s);
+        System.out.print(tmp);
     }
     
     public void displayInfo() {
@@ -107,8 +105,7 @@ public class ViewFX extends Application implements Observer{
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-       
+    public void start(Stage primaryStage) throws Exception {   
         Pane root = new Pane() {
             @Override
             protected void layoutChildren() {

@@ -84,6 +84,4 @@ public class Phantom implements Character{
     public Labyrinth getLab() {
         return lab;
     }
-    
-    
 }
