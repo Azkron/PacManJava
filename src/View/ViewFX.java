@@ -6,23 +6,22 @@
 package View;
 
 import Control.ControllerFX;
+import Control.InputFX;
 import Control.Type;
 import Model.GameState;
 import java.util.Observable;
 import java.util.Observer;
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -30,7 +29,7 @@ import javafx.stage.Stage;
  *
  * @author 2610titoure
  */
-public class ViewFX implements Observer{
+public class ViewFX extends Observable implements Observer{
     
     ControllerFX controller = null;
     
@@ -45,12 +44,13 @@ public class ViewFX implements Observer{
     private final Image imgWall = new Image("file:images/wall.png");
     private final Image imgWhite = new Image("file:images/white.gif");
     
-    private final TextField tfScore = new TextField();
-    private final TextField tfLives = new TextField();
-    private final TextField tfPhantoms = new TextField();
-    private final TextField tfPacGums = new TextField();
+    private final Label lScore = new Label();
+    private final Label lLives = new Label();
+    private final Label lPhantoms = new Label();
+    private final Label lPacGums = new Label();
     
-    private HBox boxInfo;
+    private Pane infoBox;
+    BorderPane mainPane;
     int ySize, xSize, height, width;
     
     private static final int SIZE = 20;
@@ -80,47 +80,46 @@ public class ViewFX implements Observer{
         width = xSize * SIZE;
         
         
-        BorderPane root = new BorderPane(); //{
-//            @Override
-//            protected void layoutChildren() {
-//                canvas.setWidth(width);
-//                canvas.setHeight(height);
-//                
-//            }
-//        };
+        BorderPane mainPane = new BorderPane(); 
+        setMainPaneInput(mainPane);
         
         Canvas canvas = new Canvas(width, height);
-        boxInfo = new HBox();
-        layout();
         gc = canvas.getGraphicsContext2D();
-        //boxInfo.setPrefHeight(50);
-        root.setTop(canvas);
-
-        root.setBottom(boxInfo);
         
-        Scene scene = new Scene(root, width, height);
+        HBox infoBox = createInfoBox();
+        
+        mainPane.setTop(canvas);
+        mainPane.setBottom(infoBox);
+        
+        Scene scene = new Scene(mainPane, width, height+15);
+        scene.onKeyPressedProperty().bind(mainPane.onKeyPressedProperty());
         primaryStage.setTitle("PAC MAN FX GR1");
         primaryStage.setScene(scene);
         primaryStage.show();
         
     }
     
-    private void layout() {
-        //beautify();
-        boxInfo.getChildren().addAll(tfScore, tfLives, tfPhantoms, tfPacGums);
+    public void setMainPaneInput(Pane p)
+    {
+        p.setOnKeyPressed((KeyEvent event) -> {
+            InputFX.getInstance().processInput(event.getCode());
+        });
     }
     
-    private void beautify() {
-        tfScore.setPrefColumnCount(3);
-        tfLives.setPrefColumnCount(3);
-        tfPhantoms.setPrefColumnCount(3);
-        tfPacGums.setPrefColumnCount(3);
+    
+    private HBox createInfoBox() {
+        HBox infoBox = new HBox();
+        infoBox.getChildren().addAll(lScore, lLives, lPhantoms, lPacGums);
+        for(Node n : infoBox.getChildren())
+        {
+            Label l = (Label)n;
+            l.setAlignment(Pos.CENTER);
+            l.minWidth(width);
+        }
         
-        boxInfo.setSpacing(10);
-        boxInfo.setPadding(new Insets(5, 5, 0, 5));
-        boxInfo.setAlignment(Pos.BOTTOM_CENTER);
-
+        return infoBox;
     }
+    
     
     @Override
     public void update(Observable o, Object arg) {
@@ -166,10 +165,10 @@ public class ViewFX implements Observer{
     }
     
     public void displayInfo() {
-        tfLives.setText("   Lives: " +GameState.getLives());
-        tfScore.setText("   Score: " +GameState.getScore());
-        tfPhantoms.setText("   Phantoms: " +GameState.getPhantoms());
-        tfPacGums.setText("   Pac-Gums: " +GameState.getPacGum());
+        lLives.setText("   Lives: " +GameState.getLives());
+        lScore.setText("   Score: " +GameState.getScore());
+        lPhantoms.setText("   Phantoms: " +GameState.getPhantoms());
+        lPacGums.setText("   Pac-Gums: " +GameState.getPacGum());
     }
       
  }

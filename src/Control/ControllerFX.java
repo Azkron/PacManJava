@@ -8,6 +8,7 @@ package Control;
 import Model.GameState;
 import View.ViewFX;
 import java.util.Observable;
+import java.util.Observer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author 2610titoure
  */
-public class ControllerFX extends Application{
+public class ControllerFX extends Application implements Observer{
 
     private static GameState gameState;
     private static ViewFX viewFX;
@@ -37,14 +38,18 @@ public class ControllerFX extends Application{
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception  {
         
         viewFX = viewFX.getInstance();
-        gameState = GameState.getInstance();
-        gameState.addObserver(viewFX.getInstance());
         viewFX.initialize(primaryStage);
+        gameState = GameState.getInstance();
+        gameState.addObserver(viewFX);
+        
+        InputFX.getInstance().addObserver(this);
+        
         gameState.updateGameState(Dir.NONE);
     }
+    
     
     
     public static void main(String[] args) 
@@ -53,10 +58,10 @@ public class ControllerFX extends Application{
     }
     
 
-    
-    public void processInput(Observable inputObj, Object arg) {
+    @Override
+    public void update(Observable inputObj, Object arg) {
         
-        Dir d = ((Input)inputObj).getDir();
+        Dir d = ((InputFX)inputObj).getDir();
         
         if(d != Dir.NONE)
         {
