@@ -8,50 +8,53 @@ package Control;
 import Model.GameState;
 import View.ViewFX;
 import java.util.Observable;
-import java.util.Observer;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  *
  * @author 2610titoure
  */
-public class ControllerFX implements Observer{
+public class ControllerFX extends Application{
 
     private static GameState gameState;
-    private static Input input;
     private static ViewFX viewFX;
     
     
-    private static final ControllerFX INSTANCE = new ControllerFX();
+    private static ControllerFX instance;
     
     public static ControllerFX getInstance()
     {
-        return INSTANCE;
+        return instance;
     }
     
-    private ControllerFX()
+    public ControllerFX()
     {
-    }
-    
-    
-    public static void main(String[] args)
-    {
-        ControllerFX.getInstance().initialize();
-        input.getInput();
-        // getInput() calls an infinite loop to get the input and send it 
-        // to the Controller via notifyObserver()
-    }
-    
-    private void initialize()
-    {
-        gameState = GameState.getInstance();
-        gameState.addObserver(viewFX.getInstance());
-        gameState.updateGameState(Dir.NONE);
-        input = new Input();
-        input.addObserver(ControllerFX.getInstance()); 
+        if(instance == null)
+            instance = this;
+        else
+            throw new RuntimeException("There can only be one controller");
     }
 
     @Override
-    public void update(Observable inputObj, Object arg) {
+    public void start(Stage primaryStage) throws Exception {
+        
+        viewFX = viewFX.getInstance();
+        gameState = GameState.getInstance();
+        gameState.addObserver(viewFX.getInstance());
+        viewFX.initialize(primaryStage);
+        gameState.updateGameState(Dir.NONE);
+    }
+    
+    
+    public static void main(String[] args) 
+    {
+        launch(args);
+    }
+    
+
+    
+    public void processInput(Observable inputObj, Object arg) {
         
         Dir d = ((Input)inputObj).getDir();
         

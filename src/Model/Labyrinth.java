@@ -90,6 +90,7 @@ public class Labyrinth {
         
         xSize = tab[0].length;
         ySize = tab.length;
+        System.out.println(xSize + ", " +ySize);
         
         lab = new Case[ySize][xSize];
         for(int y = 0; y < ySize; ++y)
