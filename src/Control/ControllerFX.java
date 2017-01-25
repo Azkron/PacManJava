@@ -41,6 +41,7 @@ public class ControllerFX extends Application implements Observer{
     public void start(Stage primaryStage) throws Exception  {
         
         viewFX = viewFX.getInstance();
+        primaryStage.setResizable(false);
         viewFX.initialize(primaryStage);
         gameState = GameState.getInstance();
         gameState.addObserver(viewFX);

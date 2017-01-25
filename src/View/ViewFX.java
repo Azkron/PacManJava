@@ -9,6 +9,7 @@ import Control.ControllerFX;
 import Control.InputFX;
 import Control.Type;
 import Model.GameState;
+import Model.PacMan;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.geometry.Pos;
@@ -39,7 +40,6 @@ public class ViewFX extends Observable implements Observer{
     private final Image imgFruit = new Image("file:images/fruit.png");
     private final Image imgPacMan = new Image("file:images/pacman.png");
     private final Image imgPacmanInvincible = new Image("file:images/pacman_invincible.png");
-    private final Image imgBouleDeGomme = new Image("file:images/boule-de-gomme.png");
     private final Image imgPacmanNormal = new Image("file:images/pacman_normal.png");
     private final Image imgWall = new Image("file:images/wall.png");
     private final Image imgWhite = new Image("file:images/white.gif");
@@ -144,6 +144,8 @@ public class ViewFX extends Observable implements Observer{
         switch(t) 
         {
             case PACMAN : img = imgPacmanNormal;
+                           if(PacMan.getSuper())
+                               img = imgPacmanInvincible;
                 break;
             case PHANTOM : img = imgPhantom;
                 break;
@@ -165,10 +167,11 @@ public class ViewFX extends Observable implements Observer{
     }
     
     public void displayInfo() {
+        lPacGums.setText("   Pac-Gums: " +GameState.getPacGum());
+        lPhantoms.setText("   Phantoms: " +GameState.getPhantoms());
         lLives.setText("   Lives: " +GameState.getLives());
         lScore.setText("   Score: " +GameState.getScore());
-        lPhantoms.setText("   Phantoms: " +GameState.getPhantoms());
-        lPacGums.setText("   Pac-Gums: " +GameState.getPacGum());
+        
     }
       
  }
