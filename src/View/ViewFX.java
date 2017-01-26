@@ -60,9 +60,7 @@ public class ViewFX extends Observable implements Observer{
         return instance;
     }
     
-    private ViewFX() 
-    { 
-    }
+    private ViewFX() {}
     
     
     public void initialize(Stage primaryStage){
