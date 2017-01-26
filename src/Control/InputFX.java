@@ -20,7 +20,6 @@ import javafx.util.Duration;
  */
 public class InputFX  {
     
-    private Dir dir = null;
     private KeyMap keyMap;
     private static InputFX instance = new InputFX();
     double time = 0;
@@ -36,10 +35,6 @@ public class InputFX  {
         keyMap = KeyMap.AZERT;
     }
 
-    public Dir getDir()
-    {
-        return dir;
-    }
     public Dir processInput(KeyCode c)
     {
         if(c == KeyCode.X)// exit if X
@@ -50,7 +45,7 @@ public class InputFX  {
             return keyMap.getDir(c);
         }
         else // send dir.NONE if on cln
-            return dir.NONE;
+            return Dir.NONE;
     }
     
     private void putOnCooldown()

@@ -58,6 +58,11 @@ public class GameState extends Observable {
         score += s;
     }
     
+    public static boolean getSuperPacMan()
+    {
+        return PacMan.getSuper();
+    }
+    
     public static int getLives()
     {
         return lives;

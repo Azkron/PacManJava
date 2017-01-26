@@ -10,6 +10,8 @@ import Control.InputFX;
 import Control.Type;
 import Model.GameState;
 import Model.PacMan;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.geometry.Pos;
@@ -34,22 +36,16 @@ import javafx.stage.Stage;
 public class ViewFX extends Observable implements Observer{
     
     ControllerFX controller = null;
-    
-    private final Image imgPacGum = new Image("file:images/boule_de_gomme.png");
-    private final Image imgMushroom = new Image("file:images/champignon.png");
-    private final Image imgPhantom = new Image("file:images/enemy_normal.png");
-    private final Image imgFruit = new Image("file:images/fruit.png");
-    //private final Image imgPacMan = new Image("file:images/pacman.png");
-    private final Image imgPacmanInvincible = new Image("file:images/pacman_invincible.png");
-    private final Image imgPacmanNormal = new Image("file:images/pacman_normal.png");
-    private final Image imgWall = new Image("file:images/wall.png");
-    private final Image imgWhite = new Image("file:images/white.gif");
+    Type t = Type.PACGUM;
+    private Map<Type, Image> imageMap;
+    private Image imgPacmanInvincible, imgPacman;
     
     private final Label lScore = new Label();
     private final Label lLives = new Label();
     private final Label lPhantoms = new Label();
     private final Label lPacGums = new Label();
     private KeyCode keyPressed = null;
+    
     
     BorderPane mainPane;
     int ySize, xSize, height, width;
@@ -96,10 +92,27 @@ public class ViewFX extends Observable implements Observer{
         
         scene.onKeyPressedProperty().bind(mainPane.onKeyPressedProperty());
         
+        loadImages();
+        
         primaryStage.setTitle("PAC MAN FX GR1");
         primaryStage.setScene(scene);
         primaryStage.show();
         
+    }
+    
+    private void loadImages()
+    {
+        imgPacmanInvincible = new Image("file:images/pacman_invincible.png");
+        imgPacman = new Image("file:images/pacman_normal.png");
+        imageMap = new HashMap<>();
+        imageMap.put(Type.PACMAN, imgPacman);
+        //imageMap.put(Type.PACMAN, new Image("file:images/pacman.png"));
+        imageMap.put(Type.PACGUM, new Image("file:images/boule_de_gomme.png"));
+        imageMap.put(Type.MUSHROOM, new Image("file:images/champignon.png"));
+        imageMap.put(Type.PHANTOM, new Image("file:images/enemy_normal.png"));
+        imageMap.put(Type.FRUIT, new Image("file:images/fruit.png"));
+        imageMap.put(Type.WALL, new Image("file:images/wall.png"));
+        imageMap.put(Type.EMPTY, new Image("file:images/white.gif"));
     }
     
     public KeyCode getKeyPressed()
@@ -139,6 +152,8 @@ public class ViewFX extends Observable implements Observer{
     
     private void drawLabyrinth(GameState g) {
         
+        setPacManImage(g);// checks if the PacMan is super and changes the image if so
+            
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, width, height);
         
@@ -150,31 +165,16 @@ public class ViewFX extends Observable implements Observer{
         displayInfo();
     }
     
+    private void setPacManImage(GameState g)
+    {
+        if(g.getSuperPacMan())
+            imageMap.put(Type.PACMAN, imgPacmanInvincible);
+        else
+            imageMap.put(Type.PACMAN, imgPacman);
+    }
+    
     public void drawType(Type t, int x, int y) {
-        Image img;
-        switch(t) 
-        {
-            case PACMAN : img = imgPacmanNormal;
-                           if(PacMan.getSuper())
-                               img = imgPacmanInvincible;
-                break;
-            case PHANTOM : img = imgPhantom;
-                break;
-            case PACGUM : img = imgPacGum;
-                break;
-            case FRUIT : img = imgFruit;
-                break;
-            case MUSHROOM : img = imgMushroom;
-                break;
-            case WALL : img = imgWall;
-                break;
-            case EMPTY: img = imgWhite;
-                break;
-            default : img = imgWhite;
-                break;
-        }
-        
-        gc.drawImage(img, x, y,SIZE, SIZE);
+        gc.drawImage(imageMap.get(t), x, y,SIZE, SIZE);
     }
     
     public void displayInfo() {
