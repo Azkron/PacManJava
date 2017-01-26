@@ -70,7 +70,7 @@ public class ControllerFX extends Application implements Observer{
         
         Dir d = inputFX.processInput((KeyCode)arg);
         
-        if(d == null)
+        if(d == null) // user pressed x
             Platform.exit();
             //System.exit(0);
         else
