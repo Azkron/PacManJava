@@ -10,6 +10,7 @@ import View.ViewFX;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -69,7 +70,8 @@ public class ControllerFX extends Application implements Observer{
         Dir d = inputFX.processInput(((ViewFX)inputObj).getKeyPressed());
         
         if(d == null)
-            System.exit(0);
+            Platform.exit();
+            //System.exit(0);
         else
         {
             gameState.updateGameState(d);
@@ -81,12 +83,14 @@ public class ControllerFX extends Application implements Observer{
         if(gameState.getLives() == 0)
         {
             System.out.println("No more lives. GAME-OVER!!!!!!!");
-            System.exit(0);
+            Platform.exit();
+            //System.exit(0);
         }
         else if(gameState.getPhantoms() == 0)
         {
             System.out.println("No more phantoms. YOU WIN!!!!!!! CONGRATS");
-            System.exit(0);
+            Platform.exit();
+            //System.exit(0);
         }
     }
     
