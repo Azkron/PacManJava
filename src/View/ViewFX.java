@@ -94,7 +94,9 @@ public class ViewFX extends Observable implements Observer{
         mainPane.setBottom(infoBox);
         
         Scene scene = new Scene(mainPane, width, height+15);
+        
         scene.onKeyPressedProperty().bind(mainPane.onKeyPressedProperty());
+        
         primaryStage.setTitle("PAC MAN FX GR1");
         primaryStage.setScene(scene);
         primaryStage.show();
