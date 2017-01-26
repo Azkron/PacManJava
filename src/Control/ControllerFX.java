@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -67,7 +68,7 @@ public class ControllerFX extends Application implements Observer{
     @Override
     public void update(Observable inputObj, Object arg) {
         
-        Dir d = inputFX.processInput(((ViewFX)inputObj).getKeyPressed());
+        Dir d = inputFX.processInput((KeyCode)arg);
         
         if(d == null)
             Platform.exit();

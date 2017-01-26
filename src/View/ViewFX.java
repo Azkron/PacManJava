@@ -42,7 +42,6 @@ public class ViewFX extends Observable implements Observer{
     private final Label lLives = new Label();
     private final Label lPhantoms = new Label();
     private final Label lPacGums = new Label();
-    private KeyCode keyPressed = null;
     
     
     BorderPane mainPane;
@@ -113,17 +112,11 @@ public class ViewFX extends Observable implements Observer{
         imageMap.put(Type.EMPTY, new Image("file:images/white.gif"));
     }
     
-    public KeyCode getKeyPressed()
-    {
-        return keyPressed;
-    }
-    
     public void setMainPaneInput(Pane p)
     {
         p.setOnKeyPressed((KeyEvent event) -> {
-            keyPressed = event.getCode();
             setChanged();
-            notifyObservers();
+            notifyObservers(event.getCode());
         });
     }
     
@@ -145,17 +138,16 @@ public class ViewFX extends Observable implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
-        drawLabyrinth((GameState) o);
+        drawLabyrinth((GameState) o, (Type[][]) arg);
     }
     
-    private void drawLabyrinth(GameState g) {
+    private void drawLabyrinth(GameState g, Type[][] lab) {
         
         setPacManImage(g);// checks if the PacMan is super and changes the image if so
             
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, width, height);
         
-        Type[][] lab = g.getLabView();
         for(int y=0; y < lab.length; y++ ) 
             for(int x=0; x < lab[y].length; x++ ) 
                 drawType(lab[y][x], x*SIZE, y*SIZE);

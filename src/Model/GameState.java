@@ -40,7 +40,7 @@ public class GameState extends Observable {
     {
         PacMan.getInstance().move(d);
         setChanged();
-        notifyObservers();
+        notifyObservers(getLabView());
     } 
     
     public Type[][] getLabView()
