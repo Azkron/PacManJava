@@ -58,6 +58,7 @@ public class ControllerFX extends Application implements Observer{
     
     public static void main(String[] args) 
     {
+        System.out.println("You can press \"x\" for exit");
         launch(args);
     }
     
