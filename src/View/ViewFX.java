@@ -19,6 +19,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -48,6 +49,7 @@ public class ViewFX extends Observable implements Observer{
     private final Label lLives = new Label();
     private final Label lPhantoms = new Label();
     private final Label lPacGums = new Label();
+    private KeyCode keyPressed = null;
     
     private Pane infoBox;
     BorderPane mainPane;
@@ -99,10 +101,17 @@ public class ViewFX extends Observable implements Observer{
         
     }
     
+    public KeyCode getKeyPressed()
+    {
+        return keyPressed;
+    }
+    
     public void setMainPaneInput(Pane p)
     {
         p.setOnKeyPressed((KeyEvent event) -> {
-            InputFX.getInstance().processInput(event.getCode());
+            keyPressed = event.getCode();
+            setChanged();
+            notifyObservers();
         });
     }
     

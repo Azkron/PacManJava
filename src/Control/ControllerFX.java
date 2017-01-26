@@ -20,6 +20,7 @@ public class ControllerFX extends Application implements Observer{
 
     private static GameState gameState;
     private static ViewFX viewFX;
+    private static InputFX inputFX;
     
     
     private static ControllerFX instance;
@@ -40,13 +41,15 @@ public class ControllerFX extends Application implements Observer{
     @Override
     public void start(Stage primaryStage) throws Exception  {
         
-        viewFX = viewFX.getInstance();
         primaryStage.setResizable(false);
+        viewFX = viewFX.getInstance();
         viewFX.initialize(primaryStage);
+        viewFX.addObserver(this);
+        
         gameState = GameState.getInstance();
         gameState.addObserver(viewFX);
         
-        InputFX.getInstance().addObserver(this);
+        inputFX = InputFX.getInstance();
         
         gameState.updateGameState(Dir.NONE);
     }
@@ -62,15 +65,15 @@ public class ControllerFX extends Application implements Observer{
     @Override
     public void update(Observable inputObj, Object arg) {
         
-        Dir d = ((InputFX)inputObj).getDir();
+        Dir d = inputFX.processInput(((ViewFX)inputObj).getKeyPressed());
         
-        if(d != Dir.NONE)
+        if(d == null)
+            System.exit(0);
+        else
         {
             gameState.updateGameState(d);
             checkGameOver();
         }
-        else
-            System.exit(0);
     }
     
     private void checkGameOver() {

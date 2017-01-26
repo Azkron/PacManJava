@@ -18,7 +18,7 @@ import javafx.util.Duration;
  *
  * @author Hugo
  */
-public class InputFX  extends Observable {
+public class InputFX  {
     
     private Dir dir = null;
     private KeyMap keyMap;
@@ -40,19 +40,17 @@ public class InputFX  extends Observable {
     {
         return dir;
     }
-    public void processInput(KeyCode c)
+    public Dir processInput(KeyCode c)
     {
-        if(!cooldown)
+        if(c == KeyCode.X)// exit if X
+            return null;
+        else if(!cooldown)// send dir if not on cln
         {
             putOnCooldown();
-            dir = keyMap.getDir(c);
-
-            if(dir != Dir.NONE)// || c == KeyCode.X)
-            {
-                setChanged();
-                notifyObservers();
-            }
+            return keyMap.getDir(c);
         }
+        else // send dir.NONE if on cln
+            return dir.NONE;
     }
     
     private void putOnCooldown()
