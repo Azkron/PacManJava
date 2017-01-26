@@ -109,7 +109,7 @@ public class ViewFX extends Observable implements Observer{
     
     private HBox createInfoBox() {
         HBox infoBox = new HBox();
-        infoBox.getChildren().addAll(lScore, lLives, lPhantoms, lPacGums);
+        infoBox.getChildren().addAll(lPacGums, lPhantoms, lLives, lScore);
         infoBox.setAlignment(Pos.CENTER);
         for(Node n : infoBox.getChildren())
         {
@@ -169,9 +169,9 @@ public class ViewFX extends Observable implements Observer{
     
     public void displayInfo() {
         lPacGums.setText("   Pac-Gums: " +GameState.getPacGum());
-        lPhantoms.setText("   Phantoms: " +GameState.getPhantoms());
-        lLives.setText("   Lives: " +GameState.getLives());
-        lScore.setText("   Score: " +GameState.getScore());
+        lPhantoms.setText("   - Phantoms: " +GameState.getPhantoms());
+        lLives.setText("   - Lives: " +GameState.getLives());
+        lScore.setText("   - Score: " +GameState.getScore());
         
     }
       
