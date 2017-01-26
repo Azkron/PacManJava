@@ -110,6 +110,7 @@ public class ViewFX extends Observable implements Observer{
     private HBox createInfoBox() {
         HBox infoBox = new HBox();
         infoBox.getChildren().addAll(lScore, lLives, lPhantoms, lPacGums);
+        infoBox.setAlignment(Pos.CENTER);
         for(Node n : infoBox.getChildren())
         {
             Label l = (Label)n;
