@@ -39,7 +39,7 @@ public class ViewFX extends Observable implements Observer{
     private final Image imgMushroom = new Image("file:images/champignon.png");
     private final Image imgPhantom = new Image("file:images/enemy_normal.png");
     private final Image imgFruit = new Image("file:images/fruit.png");
-    private final Image imgPacMan = new Image("file:images/pacman.png");
+    //private final Image imgPacMan = new Image("file:images/pacman.png");
     private final Image imgPacmanInvincible = new Image("file:images/pacman_invincible.png");
     private final Image imgPacmanNormal = new Image("file:images/pacman_normal.png");
     private final Image imgWall = new Image("file:images/wall.png");
@@ -51,7 +51,6 @@ public class ViewFX extends Observable implements Observer{
     private final Label lPacGums = new Label();
     private KeyCode keyPressed = null;
     
-    private Pane infoBox;
     BorderPane mainPane;
     int ySize, xSize, height, width;
     
