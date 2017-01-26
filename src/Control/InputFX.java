@@ -22,7 +22,6 @@ public class InputFX  {
     
     private KeyMap keyMap;
     private static InputFX instance = new InputFX();
-    double time = 0;
     private boolean cooldown = false;
     
     public static InputFX getInstance()

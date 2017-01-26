@@ -6,10 +6,8 @@
 package View;
 
 import Control.ControllerFX;
-import Control.InputFX;
 import Control.Type;
 import Model.GameState;
-import Model.PacMan;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -38,7 +36,7 @@ public class ViewFX extends Observable implements Observer{
     ControllerFX controller = null;
     Type t = Type.PACGUM;
     private Map<Type, Image> imageMap;
-    private Image imgPacmanInvincible, imgPacman;
+    private Image imgPacManInvincible, imgPacMan;
     
     private final Label lScore = new Label();
     private final Label lLives = new Label();
@@ -102,10 +100,10 @@ public class ViewFX extends Observable implements Observer{
     
     private void loadImages()
     {
-        imgPacmanInvincible = new Image("file:images/pacman_invincible.png");
-        imgPacman = new Image("file:images/pacman_normal.png");
+        imgPacManInvincible = new Image("file:images/pacman_invincible.png");
+        imgPacMan = new Image("file:images/pacman_normal.png");
         imageMap = new HashMap<>();
-        imageMap.put(Type.PACMAN, imgPacman);
+        imageMap.put(Type.PACMAN, imgPacMan);
         //imageMap.put(Type.PACMAN, new Image("file:images/pacman.png"));
         imageMap.put(Type.PACGUM, new Image("file:images/boule_de_gomme.png"));
         imageMap.put(Type.MUSHROOM, new Image("file:images/champignon.png"));
@@ -168,9 +166,9 @@ public class ViewFX extends Observable implements Observer{
     private void setPacManImage(GameState g)
     {
         if(g.getSuperPacMan())
-            imageMap.put(Type.PACMAN, imgPacmanInvincible);
+            imageMap.put(Type.PACMAN, imgPacManInvincible);
         else
-            imageMap.put(Type.PACMAN, imgPacman);
+            imageMap.put(Type.PACMAN, imgPacMan);
     }
     
     public void drawType(Type t, int x, int y) {
