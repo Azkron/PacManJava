@@ -1,23 +1,14 @@
-Most of the commits has been done by me (Hugo Barbachano) but this is because Tidiane Toure has used my PC too so he was logged in my account instead of his.
-
-
-This is the main loop of the game, but we have also added it with all the analysis in AnalysisAndReadMe.pdf
-
 Main Game Loop
-
-In its main() the Controller creates all the objects, sets itself as an observer of Input and sets View as an
+In its main() the ControllerFX creates all the objects, sets itself as an observer of ViewFX and sets ViewFX as an
 observer of GameState.
-
-Then the Controller calls Input.getInput() which runs an infinite loop:
-
-    1 – Input checks for input from the Player and notifies its observers (the Controller).
-
-    2 - In its update() the Controller calls GameState.updateGameState().
-
-    3 - In updateGameState() GameState handles the movement and notifies its observers (the View).
-
-    4 - In its update() the View gets a copy of the Labyrinth calling GameState.getLabView() and draws it
-        based on that.
-
-    5 - The Controller calls System.Exit() if the conditions for Game Over or Win are met or if the player types
-        “x”.
+Then the ControllerFX calls GameState.updateGameState(Dir) which runs an infinite loop:
+{
+1 – ViewFX gathers the key press and notifies ControllerFX.
+2 - In its update() ControllerFX processes the input with InpuFXt.proccessInput(KeyCode) and calls
+GameState.updateGameState(Dir).
+3 - In updateGameState() GameState handles the movement and notifies the ViewFX.
+4 - ViewFX gets a Type[][] copy of the labyrinth as a parameter in its update() and draws the game
+based on that.
+5 – The ControllerFX calls Platform.exit() if the conditions for Game Over or Win are met or if the
+player types “x”.
+}
