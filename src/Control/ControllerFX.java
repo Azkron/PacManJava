@@ -9,10 +9,14 @@ import Model.GameState;
 import View.ViewFX;
 import java.util.Observable;
 import java.util.Observer;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -24,8 +28,11 @@ public class ControllerFX extends Application implements Observer{
     private static ViewFX viewFX;
     private static InputFX inputFX;
     
+    private static double frameTime = 100;
     
     private static ControllerFX instance;
+    
+    private static Dir dir = Dir.NONE;
     
     public static ControllerFX getInstance()
     {
@@ -38,6 +45,12 @@ public class ControllerFX extends Application implements Observer{
             instance = this;
         else
             throw new RuntimeException("There can only be one controller");
+    }
+    
+    public static void main(String[] args) 
+    {
+        System.out.println("You can press \"x\" for exit");
+        launch(args);
     }
 
     @Override
@@ -53,31 +66,43 @@ public class ControllerFX extends Application implements Observer{
         
         inputFX = InputFX.getInstance();
         
-        gameState.updateGameState(Dir.NONE);
+        play();
     }
     
     
+    private void play() {
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(frameTime),
+                ae -> nextFrame())
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();                    
+    }
     
-    public static void main(String[] args) 
+    private void nextFrame()
     {
-        System.out.println("You can press \"x\" for exit");
-        launch(args);
+        gameState.updateGameState(dir);
+        dir = Dir.NONE;
     }
-    
 
     @Override
     public void update(Observable inputObj, Object arg) {
         
-        Dir d = inputFX.processInput((KeyCode)arg);
+        dir = inputFX.processInput((KeyCode)arg);
         
-        if(d == null) // user pressed x
+        if(dir == null) // user pressed x
             Platform.exit();
             //System.exit(0);
         else
         {
-            gameState.updateGameState(d);
+            gameState.updateGameState(dir);
             checkGameOver();
         }
+    }
+    
+    public double getFrameTime()
+    {
+        return frameTime;
     }
     
     private void checkGameOver() {

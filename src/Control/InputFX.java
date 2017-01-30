@@ -5,14 +5,9 @@
  */
 package Control;
 
-import View.ViewFX;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
-import javafx.util.Duration;
 
 /**
  *
@@ -22,7 +17,7 @@ public class InputFX  {
     
     private KeyMap keyMap;
     private static InputFX instance = new InputFX();
-    private boolean cooldown = false;
+    //private boolean cooldown = false;
     
     public static InputFX getInstance()
     {
@@ -38,16 +33,16 @@ public class InputFX  {
     {
         if(c == KeyCode.X)// exit if X
             return null;
-        else if(!cooldown)// send dir if not on cln
+        else //if(!cooldown)// send dir if not on cln
         {
-            putOnCooldown();
+            //putOnCooldown();
             return keyMap.getDir(c);
         }
-        else // send dir.NONE if on cln
-            return Dir.NONE;
+        /*else // send dir.NONE if on cln
+            return Dir.NONE;*/
     }
     
-    private void putOnCooldown()
+    /*private void putOnCooldown()
     {
         cooldown = true;
         Timeline timeline = new Timeline(new KeyFrame(
@@ -59,7 +54,7 @@ public class InputFX  {
     private void resetCooldown()
     {
         cooldown = false;
-    }
+    }*/
     
     public enum KeyMap {
 
