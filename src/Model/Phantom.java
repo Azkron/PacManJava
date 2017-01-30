@@ -19,6 +19,7 @@ public class Phantom implements Character{
     private int x, y, startX, startY; 
     private static ArrayList<Phantom> phantoms = new ArrayList<>();
     private Labyrinth lab;
+    private Dir dir;
     
     Phantom(int x, int y, Labyrinth lab)
     {
@@ -28,6 +29,16 @@ public class Phantom implements Character{
         this.x = startX;
         this.y = startY;
         phantoms.add(this);
+        changeDirection();
+    }
+    
+    public static void movePhantoms() {
+        for(Phantom p: phantoms) 
+            p.move();   
+    }
+    
+    public void changeDirection() {
+        dir = Dir.randomDirection();
     }
     
     public void kill()
@@ -45,6 +56,10 @@ public class Phantom implements Character{
         return phantoms.size();
     }
     
+    public void move() {
+        move(dir);
+    }
+    
     @Override
     public void move(Dir d) {
         int nextY = getNextY(d);
@@ -57,7 +72,7 @@ public class Phantom implements Character{
             else
                 switch(c.getType())
                 {
-                    case PHANTOM:
+                    case PACMAN:
                         if(PacMan.getSuper()) {
                             ((Phantom) c).kill();
                             moveToStart();
@@ -67,19 +82,10 @@ public class Phantom implements Character{
                             kill();
                         }
                         break;
-                    case PACGUM:
-                        ((Consumable)c).Consume();
-                        moveInLab(nextX, nextY);
-                        break;
-                    case FRUIT:
-                        ((Consumable)c).Consume();
-                        moveInLab(nextX, nextY);
-                        break;
-                    case MUSHROOM:
-                        ((Consumable)c).Consume();
-                        moveInLab(nextX, nextY);
-                        break;
+                    case WALL:
+                        changeDirection();
                     default:
+                        moveInLab(nextX, nextY);
                         break;
                 }
         }

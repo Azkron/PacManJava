@@ -39,6 +39,7 @@ public class GameState extends Observable {
     public void updateGameState(Dir d)
     {
         PacMan.getInstance().move(d);
+        
         setChanged();
         notifyObservers(getLabView());
     } 
