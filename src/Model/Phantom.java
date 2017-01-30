@@ -7,6 +7,7 @@ package Model;
 
 import Control.Type;
 import Control.Dir;
+import Model.PacMan;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +47,42 @@ public class Phantom implements Character{
     
     @Override
     public void move(Dir d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int nextY = getNextY(d);
+        int nextX = getNextX(d);
+        if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize()) 
+        {
+            Case c = lab.get(nextX, nextY);
+            if(c == null)
+                moveInLab(nextX, nextY);
+            else
+                switch(c.getType())
+                {
+                    case PHANTOM:
+                        if(PacMan.getSuper()) {
+                            ((Phantom) c).kill();
+                            moveToStart();
+                            GameState.addScore(20);
+                        }
+                        else {
+                            kill();
+                        }
+                        break;
+                    case PACGUM:
+                        ((Consumable)c).Consume();
+                        moveInLab(nextX, nextY);
+                        break;
+                    case FRUIT:
+                        ((Consumable)c).Consume();
+                        moveInLab(nextX, nextY);
+                        break;
+                    case MUSHROOM:
+                        ((Consumable)c).Consume();
+                        moveInLab(nextX, nextY);
+                        break;
+                    default:
+                        break;
+                }
+        }
     }
     
     @Override
