@@ -53,6 +53,8 @@ public class Labyrinth {
                 else
                     labView[y][x] = Type.EMPTY;
             }
+        for(Phantom p: Phantom.getPhantoms()) 
+            labView[p.getY()][p.getX()] = p.getType();
         
         
         return labView;
@@ -93,11 +95,13 @@ public class Labyrinth {
         
         lab = new Case[ySize][xSize];
         for(int y = 0; y < ySize; ++y)
-            for(int x = 0; x < xSize; ++x)
+            for(int x = 0; x < xSize; ++x)             
                 lab[y][x] = caseFromTab(tab[y][x], x, y);
+         
         
         //randomizePhantoms();
     }
+  
     
     private void randomizePhantoms()
     {
@@ -140,7 +144,8 @@ public class Labyrinth {
             case 0 : return null;
             case 1 : return new Wall();
             case 2 : return new PacMan(x,y, this);
-            case 3 : return new Phantom(x, y, this);
+            case 3 : new Phantom(x, y, this);
+                     return null;  
             case 4 : return new PacGum();
             case 5 : return new Fruit();
             case 6 : return new Mushroom();

@@ -43,7 +43,8 @@ public class Phantom implements Character{
     
     public void kill()
     {
-        phantoms.remove(this);
+        moveToStart();
+        //phantoms.remove(this);
     }
     
     public static ArrayList<Phantom> getPhantoms()
@@ -74,12 +75,11 @@ public class Phantom implements Character{
                 {
                     case PACMAN:
                         if(PacMan.getSuper()) {
-                            ((Phantom) c).kill();
-                            moveToStart();
+                            this.kill();
                             GameState.addScore(20);
                         }
                         else {
-                            kill();
+                            ((PacMan) c).kill();
                         }
                         break;
                     case WALL:
@@ -125,5 +125,10 @@ public class Phantom implements Character{
     @Override
     public Labyrinth getLab() {
         return lab;
+    }
+    
+    @Override
+    public void moveInLab(int nextX, int nextY) {       
+        setXY(nextX, nextY);
     }
 }
