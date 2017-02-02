@@ -96,6 +96,7 @@ public class ControllerFX extends Application implements Observer{
         else
         {
             gameState.updateGameState(dir);
+            dir = Dir.NONE;
             checkGameOver();
         }
     }

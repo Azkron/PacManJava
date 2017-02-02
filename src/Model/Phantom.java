@@ -57,9 +57,10 @@ public class Phantom implements Character{
         return phantoms.size();
     }
     
-    public void move() {
+    private void move() {
         move(dir);
     }
+    
     
     @Override
     public void move(Dir d) {
@@ -84,6 +85,7 @@ public class Phantom implements Character{
                         break;
                     case WALL:
                         changeDirection();
+                        break;
                     default:
                         moveInLab(nextX, nextY);
                         break;
