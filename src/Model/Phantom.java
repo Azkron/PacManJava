@@ -7,6 +7,7 @@ package Model;
 
 import Control.Type;
 import Control.Dir;
+import Model.PacMan;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,7 @@ public class Phantom implements Character{
     private int x, y, startX, startY; 
     private static ArrayList<Phantom> phantoms = new ArrayList<>();
     private Labyrinth lab;
+    private Dir dir;
     
     Phantom(int x, int y, Labyrinth lab)
     {
@@ -27,11 +29,22 @@ public class Phantom implements Character{
         this.x = startX;
         this.y = startY;
         phantoms.add(this);
+        changeDirection();
+    }
+    
+    public static void movePhantoms() {
+        for(Phantom p: phantoms) 
+            p.move();   
+    }
+    
+    public void changeDirection() {
+        dir = Dir.randomDirection();
     }
     
     public void kill()
     {
-        phantoms.remove(this);
+        moveToStart();
+        //phantoms.remove(this);
     }
     
     public static ArrayList<Phantom> getPhantoms()
@@ -44,9 +57,38 @@ public class Phantom implements Character{
         return phantoms.size();
     }
     
+    public void move() {
+        move(dir);
+    }
+    
     @Override
     public void move(Dir d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int nextY = getNextY(d);
+        int nextX = getNextX(d);
+        if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize()) 
+        {
+            Case c = lab.get(nextX, nextY);
+            if(c == null)
+                moveInLab(nextX, nextY);
+            else
+                switch(c.getType())
+                {
+                    case PACMAN:
+                        if(PacMan.getSuper()) {
+                            this.kill();
+                            GameState.addScore(20);
+                        }
+                        else {
+                            ((PacMan) c).kill();
+                        }
+                        break;
+                    case WALL:
+                        changeDirection();
+                    default:
+                        moveInLab(nextX, nextY);
+                        break;
+                }
+        }
     }
     
     @Override
@@ -83,5 +125,10 @@ public class Phantom implements Character{
     @Override
     public Labyrinth getLab() {
         return lab;
+    }
+    
+    @Override
+    public void moveInLab(int nextX, int nextY) {       
+        setXY(nextX, nextY);
     }
 }

@@ -5,10 +5,18 @@
  */
 package Control;
 
+import java.util.Random;
+
 /**
  *
  * @author Hugo
  */
 public enum Dir {
-    UP, DOWN, LEFT, RIGHT, NONE
+    UP, DOWN, LEFT, RIGHT, NONE;
+    
+    private static final Random rand = new Random();
+    
+    public static Dir randomDirection() {
+        return Dir.values()[rand.nextInt(Dir.values().length)];
+    }
 }
