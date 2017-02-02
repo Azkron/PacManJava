@@ -82,7 +82,8 @@ public class ControllerFX extends Application implements Observer{
     private void nextFrame()
     {
         gameState.updateGameState(dir);
-        dir = Dir.NONE;
+        dir = Dir.NONE;            
+        checkGameOver();
     }
 
     @Override
@@ -93,12 +94,6 @@ public class ControllerFX extends Application implements Observer{
         if(dir == null) // user pressed x
             Platform.exit();
             //System.exit(0);
-        else
-        {
-            gameState.updateGameState(dir);
-            dir = Dir.NONE;
-            checkGameOver();
-        }
     }
     
     public static double getFrameTime()

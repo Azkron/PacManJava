@@ -9,6 +9,7 @@ import Control.Type;
 import Control.Dir;
 import Model.PacMan;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Phantom implements Character{
     private static ArrayList<Phantom> phantoms = new ArrayList<>();
     private Labyrinth lab;
     private Dir dir;
+    private static final Random rand = new Random();
     
     Phantom(int x, int y, Labyrinth lab)
     {
@@ -29,7 +31,7 @@ public class Phantom implements Character{
         this.x = startX;
         this.y = startY;
         phantoms.add(this);
-        changeDirection();
+        dir = Dir.NONE;
     }
     
     public static void movePhantoms() {
@@ -38,7 +40,18 @@ public class Phantom implements Character{
     }
     
     public void changeDirection() {
-        dir = Dir.randomDirection();
+        System.out.println("ChangeDirection");
+        ArrayList<Dir> ld = new ArrayList<>();
+        for(Dir d : Dir.values())
+        {
+            int nextX = getNextX(d), nextY = getNextY(d);
+            if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize())
+                if(lab.get(nextX, nextY).getType() != Type.WALL)
+                    ld.add(d);
+        }
+                    
+        
+        dir =  ld.get(rand.nextInt(ld.size()));
     }
     
     public void kill()

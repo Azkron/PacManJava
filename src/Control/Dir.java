@@ -19,4 +19,5 @@ public enum Dir {
     public static Dir randomDirection() {
         return Dir.values()[rand.nextInt(Dir.values().length)];
     }
+    
 }
