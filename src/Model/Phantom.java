@@ -31,7 +31,7 @@ public class Phantom implements Character{
         this.x = startX;
         this.y = startY;
         phantoms.add(this);
-        dir = Dir.NONE;
+        changeDirection();
     }
     
     public static void movePhantoms() {
@@ -52,6 +52,7 @@ public class Phantom implements Character{
                     
         
         dir =  ld.get(rand.nextInt(ld.size()));
+        dir = Dir.randomDirection();
     }
     
     public void kill()
