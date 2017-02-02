@@ -100,7 +100,7 @@ public class ControllerFX extends Application implements Observer{
         }
     }
     
-    public double getFrameTime()
+    public static double getFrameTime()
     {
         return frameTime;
     }

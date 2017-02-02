@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Control.ControllerFX;
 import Control.Type;
 import Control.Dir;
 
@@ -18,6 +19,7 @@ public class PacMan implements Character{
     
     private Labyrinth lab;
     private static boolean superPacMan;
+    private static int superCount;
     
     private static PacMan INSTANCE = null;
     
@@ -44,6 +46,20 @@ public class PacMan implements Character{
     public static void makeSuper()
     {
         superPacMan = true;
+        superCount = 5000;
+    }
+    
+    public static void updateSuper()
+    {
+        if(superPacMan)
+        {
+            superCount -= ControllerFX.getFrameTime();
+            if(superCount <= 0)
+            {
+                superCount = 0;
+                superPacMan = false;
+            }
+        }
     }
     
     public static boolean getSuper()
@@ -94,9 +110,6 @@ public class PacMan implements Character{
                 
     }
     
-    
-    
-
     @Override
     public Type getType() {
         return Type.PACMAN;
