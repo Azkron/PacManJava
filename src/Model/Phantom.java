@@ -22,6 +22,8 @@ public class Phantom implements Character{
     private Labyrinth lab;
     private Dir dir;
     private static final Random rand = new Random();
+    private final static int MAX_MOVE_COUNT = 1;
+    private static int moveCount = MAX_MOVE_COUNT;
     
     Phantom(int x, int y, Labyrinth lab)
     {
@@ -31,28 +33,37 @@ public class Phantom implements Character{
         this.x = startX;
         this.y = startY;
         phantoms.add(this);
-        changeDirection();
+        dir = Dir.UP;
     }
     
-    public static void movePhantoms() {
-        for(Phantom p: phantoms) 
-            p.move();   
+    public static void movePhantoms() 
+    {
+        if(moveCount-- == 0)
+        {
+            moveCount  = MAX_MOVE_COUNT;
+            for(Phantom p: phantoms) 
+                p.move(); 
+        }
     }
     
-    public void changeDirection() {
-        System.out.println("ChangeDirection");
+    public void changeDirection() 
+    {
         ArrayList<Dir> ld = new ArrayList<>();
-        for(Dir d : Dir.values())
+        for(Dir d : Dir.getSet())
         {
             int nextX = getNextX(d), nextY = getNextY(d);
             if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize())
-                if(lab.get(nextX, nextY).getType() != Type.WALL)
-                    ld.add(d);
+            {
+                Case c = lab.get(nextX, nextY);
+                if( c == null || c.getType() != Type.WALL)
+                        ld.add(d);
+            }
+
         }
-                    
         
-        dir =  ld.get(rand.nextInt(ld.size()));
-        dir = Dir.randomDirection();
+        System.out.println(ld.size());
+                
+        dir = ld.get(rand.nextInt(ld.size()));
     }
     
     public void kill()

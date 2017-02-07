@@ -5,7 +5,9 @@
  */
 package Control;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -15,6 +17,17 @@ public enum Dir {
     UP, DOWN, LEFT, RIGHT, NONE;
     
     private static final Random rand = new Random();
+    
+    public static Set<Dir> getSet()
+    {
+        Set<Dir> set = new HashSet<>();
+        set.add(UP);
+        set.add(DOWN);
+        set.add(LEFT);
+        set.add(RIGHT);
+        
+        return set;
+    }
     
     public static Dir randomDirection() {
         return Dir.values()[rand.nextInt(Dir.values().length)];

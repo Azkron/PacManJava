@@ -23,6 +23,7 @@ public class GameState extends Observable {
     private static GameState INSTANCE;
     
     
+    
     public static GameState getInstance()
     {   
         if(INSTANCE == null)
