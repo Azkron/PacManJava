@@ -46,6 +46,15 @@ public class Phantom implements Character{
         }
     }
     
+    public static boolean phanomInPos(int x, int y)
+    {
+        for(Phantom p: phantoms) 
+            if(p.getX() == x && p.getY() == y)
+                return true;
+        
+        return false;
+    }
+    
     public void changeDirection() 
     {
         ArrayList<Dir> ld = new ArrayList<>();
@@ -61,8 +70,6 @@ public class Phantom implements Character{
 
         }
         
-        System.out.println(ld.size());
-                
         dir = ld.get(rand.nextInt(ld.size()));
     }
     

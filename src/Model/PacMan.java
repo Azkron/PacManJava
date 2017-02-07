@@ -76,21 +76,23 @@ public class PacMan implements Character{
         if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize()) 
         {
             Case c = lab.get(nextX, nextY);
-            if(c == null)
+            
+            if(Phantom.phanomInPos(nextX, nextY))
+            {
+                if(getSuper()) 
+                {
+                    ((Phantom) c).kill();
+                    moveInLab(nextX, nextY);
+                    GameState.addScore(20);
+                }
+                else
+                    this.kill();
+            }
+            else if(c == null)
                 moveInLab(nextX, nextY);
             else
                 switch(c.getType())
                 {
-                    case PHANTOM:
-                        if(getSuper()) {
-                            ((Phantom) c).kill();
-                            moveInLab(nextX, nextY);
-                            GameState.addScore(20);
-                        }
-                        else {
-                            kill();
-                        }
-                        break;
                     case PACGUM:
                         ((Consumable)c).Consume();
                         moveInLab(nextX, nextY);
