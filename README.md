@@ -3,9 +3,11 @@ Main Game Loop
 In its main() the Controller creates all the objects, sets itself as an observer of ViewFX and sets ViewFX as an observer of GameState.
 
 Then the Controller calls play() which runs an infinite Timeline that regularly calls nextFrame():
-{
+
+
 – At any time ViewFX gathers the key press and notifies ControllerFX.
 
+{
 1 - In nextFrame() ControllerFX processes the input with InpuFX.proccessInput(KeyCode) and calls GameState.updateGameState(Dir). 
 
 2 - In updateGameState() GameState handles the movement and notifies the ViewFX.
