@@ -46,13 +46,13 @@ public class Phantom implements Character{
         }
     }
     
-    public static boolean phanomInPos(int x, int y)
+    public static Phantom phantomInPos(int x, int y)
     {
         for(Phantom p: phantoms) 
             if(p.getX() == x && p.getY() == y)
-                return true;
+                return p;
         
-        return false;
+        return null;
     }
     
     public void changeDirection() 

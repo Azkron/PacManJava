@@ -75,39 +75,56 @@ public class PacMan implements Character{
         
         if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize()) 
         {
-            Case c = lab.get(nextX, nextY);
+            Phantom p = Phantom.phantomInPos(nextX, nextY);
+            boolean killed = false;
             
-            if(Phantom.phanomInPos(nextX, nextY))
+            
+            // eheck phantom collision
+            if(p != null)
             {
-                if(getSuper()) 
+                while(p!= null)
                 {
-                    ((Phantom) c).kill();
-                    moveInLab(nextX, nextY);
-                    GameState.addScore(20);
+                    if(getSuper()) 
+                    {
+                        p.kill();
+                        GameState.addScore(20);
+                    }
+                    else
+                    {
+                        killed = true;
+                        this.kill();
+                    }
+                    
+                    p = Phantom.phantomInPos(nextX, nextY);
                 }
-                else
-                    this.kill();
             }
-            else if(c == null)
-                moveInLab(nextX, nextY);
-            else
-                switch(c.getType())
-                {
-                    case PACGUM:
-                        ((Consumable)c).Consume();
-                        moveInLab(nextX, nextY);
-                        break;
-                    case FRUIT:
-                        ((Consumable)c).Consume();
-                        moveInLab(nextX, nextY);
-                        break;
-                    case MUSHROOM:
-                        ((Consumable)c).Consume();
-                        moveInLab(nextX, nextY);
-                        break;
-                    default:
-                        break;
+            
+            // move only if not killed by phantom
+            if(!killed)
+            {
+                Case c = lab.get(nextX, nextY);
+
+                if(c == null)
+                    moveInLab(nextX, nextY);
+                else
+                    switch(c.getType())
+                    {
+                        case PACGUM:
+                            ((Consumable)c).Consume();
+                            moveInLab(nextX, nextY);
+                            break;
+                        case FRUIT:
+                            ((Consumable)c).Consume();
+                            moveInLab(nextX, nextY);
+                            break;
+                        case MUSHROOM:
+                            ((Consumable)c).Consume();
+                            moveInLab(nextX, nextY);
+                            break;
+                        default:
+                            break;
                 }
+            }
         }
                 
     }
