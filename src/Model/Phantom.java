@@ -8,6 +8,7 @@ package Model;
 import Control.Type;
 import Control.Dir;
 import Model.PacMan;
+import static Model.PacMan.getSuper;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,14 +18,23 @@ import java.util.Random;
  */
 public class Phantom implements Character{
     
-    private int x, y, startX, startY; 
-    private static ArrayList<Phantom> phantoms = new ArrayList<>();
+    int x, y, startX, startY; 
+    static ArrayList<Phantom> phantoms = new ArrayList<>();
+    static ArrayList<Phantom> phantomsToMove;
     private Labyrinth lab;
-    private Dir dir;
+    Dir dir;
     private static final Random rand = new Random();
-    private final static int MAX_MOVE_COUNT = 1;
+    final static int MAX_MOVE_COUNT = 1;
     private static int moveCount = MAX_MOVE_COUNT;
     int power;
+    
+    private static void compose(Phantom p, Phantom p2)
+    {
+        new ComposedPhantom(p, p2);
+        
+        phantomsToMove.remove(p);
+        phantomsToMove.remove(p2);
+    }
     
     Phantom(int x, int y, Labyrinth lab)
     {
@@ -48,8 +58,14 @@ public class Phantom implements Character{
         if(moveCount-- == 0)
         {
             moveCount  = MAX_MOVE_COUNT;
-            for(Phantom p: phantoms) 
+            phantomsToMove = new ArrayList<>(phantoms);
+            
+            while(phantomsToMove.size() > 0)
+            {
+                Phantom p = phantomsToMove.get(0);
                 p.move(); 
+                phantomsToMove.remove(p);
+            }
         }
     }
     
@@ -62,7 +78,7 @@ public class Phantom implements Character{
         return null;
     }
     
-    public void changeDirection() 
+    public Dir changeDirection(boolean ignorePhantoms) 
     {
         ArrayList<Dir> ld = new ArrayList<>();
         for(Dir d : Dir.getSet())
@@ -71,13 +87,17 @@ public class Phantom implements Character{
             if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize())
             {
                 Case c = lab.get(nextX, nextY);
-                if( c == null || c.getType() != Type.WALL)
+                if( c == null || (c.getType() != Type.WALL  && (ignorePhantoms || c.getType() != Type.PHANTOM)))
                         ld.add(d);
             }
-
         }
         
-        dir = ld.get(rand.nextInt(ld.size()));
+        if(ld.size() > 0)
+            dir = ld.get(rand.nextInt(ld.size()));
+        else
+            dir = Dir.NONE;
+        
+        return dir;
     }
     
     public void kill()
@@ -96,39 +116,59 @@ public class Phantom implements Character{
         return phantoms.size();
     }
     
-    private void move() {
-        move(dir);
+    void move() {
+        move(getDir());
+    }
+    
+    public Dir getDir()
+    {
+        return dir;
     }
     
     
     @Override
     public void move(Dir d) {
-        int nextY = getNextY(d);
-        int nextX = getNextX(d);
-        if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize()) 
+        if(d != Dir.NONE)
         {
-            Case c = lab.get(nextX, nextY);
-            if(c == null)
-                moveInLab(nextX, nextY);
-            else
-                switch(c.getType())
+            int nextY = getNextY(d);
+            int nextX = getNextX(d);
+            
+            if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize()) 
+            {
+                Phantom p = Phantom.phantomInPos(nextX, nextY);
+
+                // eheck phantom collision
+                if(p != null)
                 {
-                    case PACMAN:
-                        if(PacMan.getSuper()) {
-                            this.kill();
-                            GameState.addScore(20);
-                        }
-                        else {
-                            ((PacMan) c).kill();
-                        }
-                        break;
-                    case WALL:
-                        changeDirection();
-                        break;
-                    default:
-                        moveInLab(nextX, nextY);
-                        break;
+                    new ComposedPhantom(this, p);
                 }
+                else
+                {
+                    Case c = lab.get(nextX, nextY);
+                    if(c == null)
+                        moveInLab(nextX, nextY);
+                    else
+                        switch(c.getType())
+                        {
+                            case PACMAN:
+                                if(PacMan.getSuper()) {
+                                    this.kill();
+                                    GameState.addScore(20*this.getPower());
+                                }
+                                else {
+                                    ((PacMan) c).kill(this.getPower());
+                                }
+                                break;
+                            case WALL:
+                                changeDirection(true);
+                                break;
+                            default:
+                                moveInLab(nextX, nextY);
+                                break;
+                        }
+                }
+                
+            }
         }
     }
     

@@ -104,7 +104,7 @@ public class ControllerFX extends Application implements Observer{
     private void checkGameOver() {
         
         String endMsg = null;
-        if(gameState.getLives() == 0)
+        if(gameState.getLives() <= 0)
             endMsg = "No more lives. GAME-OVER!!!!!!!";
         else if(gameState.getPhantoms() == 0)
             endMsg = "No more phantoms. YOU WIN!!!!!!! CONGRATS";

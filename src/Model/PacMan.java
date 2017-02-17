@@ -83,21 +83,16 @@ public class PacMan implements Character{
             // eheck phantom collision
             if(p != null)
             {
-                while(p!= null)
-                {
                     if(getSuper()) 
                     {
                         p.kill();
-                        GameState.addScore(20);
+                        GameState.addScore(20*p.getPower());
                     }
                     else
                     {
                         killed = true;
-                        this.kill();
+                        this.kill(p.getPower());
                     }
-                    
-                    p = Phantom.phantomInPos(nextX, nextY);
-                }
             }
             
             // move only if not killed by phantom
@@ -155,10 +150,16 @@ public class PacMan implements Character{
         return startY;
     }
 
+    public void kill(int livesLost)
+    {
+        
+        GameState.looseLifes(livesLost);
+        kill();
+    }
+    
     @Override
     public void kill() {
         moveToStart();
-        GameState.looseLife();
     }
 
     @Override

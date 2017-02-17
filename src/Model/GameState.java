@@ -16,7 +16,7 @@ import java.util.Observable;
  * @author Hugo
  */
 public class GameState extends Observable {
-    private static int score, lives = 2;
+    private static int score, lives = 5;
     
     private Labyrinth lab;
     
@@ -88,7 +88,7 @@ public class GameState extends Observable {
         return PacGum.getTotal();
     }
     
-    public static void looseLife() {
-        --lives;
+    public static void looseLifes(int amount) {
+        lives -= amount;
     }
 }
