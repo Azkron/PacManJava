@@ -24,9 +24,11 @@ public class Phantom implements Character{
     private static final Random rand = new Random();
     private final static int MAX_MOVE_COUNT = 1;
     private static int moveCount = MAX_MOVE_COUNT;
+    int power;
     
     Phantom(int x, int y, Labyrinth lab)
     {
+        power = 1;
         this.lab = lab;
         startX = x;
         startY = y;
@@ -34,6 +36,11 @@ public class Phantom implements Character{
         this.y = startY;
         phantoms.add(this);
         dir = Dir.UP;
+    }
+    
+    public int getPower()
+    {
+        return power;
     }
     
     public static void movePhantoms() 

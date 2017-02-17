@@ -15,8 +15,9 @@ import Control.Dir;
  */
 public class PacMan implements Character{
 
-    private int x,y, startX, startY;                     // Coordonnees x et y du PacMAn dans le labyrinthe
-    
+    private int x,y, startX, startY;
+    // Coordonnees x et y du PacMAn dans le labyrinthe
+
     private Labyrinth lab;
     private static boolean superPacMan;
     private static int superCount;

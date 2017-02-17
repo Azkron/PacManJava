@@ -27,7 +27,7 @@ public class Labyrinth {
     
     private Labyrinth()
     {
-        initLab();
+            initLab();
     }
     
     public Case get(int x, int y)
