@@ -6,7 +6,7 @@
 package View;
 
 import Control.ControllerFX;
-import Control.Type;
+import Model.ViewType;
 import Model.GameState;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +34,8 @@ import javafx.stage.Stage;
 public class ViewFX extends Observable implements Observer{
     
     ControllerFX controller = null;
-    Type t = Type.PACGUM;
-    private Map<Type, Image> imageMap;
+    ViewType t = ViewType.PACGUM;
+    private Map<ViewType, Image> imageMap;
     private Image imgPacManInvincible, imgPacMan;
     
     private final Label lScore = new Label();
@@ -65,7 +65,7 @@ public class ViewFX extends Observable implements Observer{
     
     public void initialize(Stage primaryStage){
         
-        Type[][] lab = GameState.getInstance().getLabView();
+        ViewType[][] lab = GameState.getInstance().getLabView();
         ySize = lab.length;
         xSize = lab[0].length;
         height = ySize * SIZE;
@@ -100,14 +100,14 @@ public class ViewFX extends Observable implements Observer{
         imgPacManInvincible = new Image("file:images/pacman_invincible.png");
         imgPacMan = new Image("file:images/pacman_normal.png");
         imageMap = new HashMap<>();
-        imageMap.put(Type.PACMAN, imgPacMan);
+        imageMap.put(ViewType.PACMAN, imgPacMan);
         //imageMap.put(Type.PACMAN, new Image("file:images/pacman.png"));
-        imageMap.put(Type.PACGUM, new Image("file:images/boule_de_gomme.png"));
-        imageMap.put(Type.MUSHROOM, new Image("file:images/champignon.png"));
-        imageMap.put(Type.PHANTOM, new Image("file:images/enemy_normal.png"));
-        imageMap.put(Type.FRUIT, new Image("file:images/fruit.png"));
-        imageMap.put(Type.WALL, new Image("file:images/wall.png"));
-        imageMap.put(Type.EMPTY, new Image("file:images/white.gif"));
+        imageMap.put(ViewType.PACGUM, new Image("file:images/boule_de_gomme.png"));
+        imageMap.put(ViewType.MUSHROOM, new Image("file:images/champignon.png"));
+        imageMap.put(ViewType.PHANTOM, new Image("file:images/enemy_normal.png"));
+        imageMap.put(ViewType.FRUIT, new Image("file:images/fruit.png"));
+        imageMap.put(ViewType.WALL, new Image("file:images/wall.png"));
+        imageMap.put(ViewType.EMPTY, new Image("file:images/white.gif"));
     }
     
     public void setMainPaneInput(Pane p)
@@ -136,10 +136,10 @@ public class ViewFX extends Observable implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
-        drawLabyrinth((GameState) o, (Type[][]) arg);
+        drawLabyrinth((GameState) o, (ViewType[][]) arg);
     }
     
-    private void drawLabyrinth(GameState g, Type[][] lab) {
+    private void drawLabyrinth(GameState g, ViewType[][] lab) {
         
         setPacManImage(g);// checks if the PacMan is super and changes the image if so
             
@@ -156,12 +156,12 @@ public class ViewFX extends Observable implements Observer{
     private void setPacManImage(GameState g)
     {
         if(g.getSuperPacMan())
-            imageMap.put(Type.PACMAN, imgPacManInvincible);
+            imageMap.put(ViewType.PACMAN, imgPacManInvincible);
         else
-            imageMap.put(Type.PACMAN, imgPacMan);
+            imageMap.put(ViewType.PACMAN, imgPacMan);
     }
     
-    public void drawType(Type t, int x, int y) {
+    public void drawType(ViewType t, int x, int y) {
         gc.drawImage(imageMap.get(t), x, y,SIZE, SIZE);
     }
     

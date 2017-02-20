@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Model;
-import Control.Type;
 
 /**
  *
@@ -12,6 +11,6 @@ import Control.Type;
  */
 public interface GameObject {
     
-    public Type getType();
+    public ViewType getType();
     
 }

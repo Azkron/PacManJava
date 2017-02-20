@@ -5,8 +5,6 @@
  */
 package Model;
 
-import Control.Type;
-
 /**
  *
  * @author Hugo
@@ -37,8 +35,8 @@ public class Fruit implements Consumable{
     }
 
     @Override
-    public Type getType() {
-        return Type.FRUIT;
+    public ViewType getType() {
+        return ViewType.FRUIT;
     }
     
 }

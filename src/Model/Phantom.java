@@ -5,7 +5,6 @@
  */
 package Model;
 
-import Control.Type;
 import Control.Dir;
 import Model.PacMan;
 import static Model.PacMan.getSuper;
@@ -87,7 +86,7 @@ public class Phantom implements Character{
             if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize())
             {
                 GameObject c = lab.get(nextX, nextY);
-                if( c == null || (c.getType() != Type.WALL  && (ignorePhantoms || c.getType() != Type.PHANTOM)))
+                if( c == null || (c.getType() != ViewType.WALL  && (ignorePhantoms || c.getType() != ViewType.PHANTOM)))
                         ld.add(d);
             }
         }
@@ -173,8 +172,8 @@ public class Phantom implements Character{
     }
     
     @Override
-    public Type getType() {
-        return Type.PHANTOM;
+    public ViewType getType() {
+        return ViewType.PHANTOM;
     }
     
     @Override

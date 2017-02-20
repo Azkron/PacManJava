@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Model;
-import Control.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,9 +39,9 @@ public class Labyrinth {
         lab[y][x] = c;
     }
     
-    public Type[][] getLabView()
+    public ViewType[][] getLabView()
     {
-        Type[][] labView = new Type[ySize][xSize];
+        ViewType[][] labView = new ViewType[ySize][xSize];
         
         for(int y = 0; y < ySize; ++y)
             for(int x = 0; x < xSize; ++x)
@@ -51,7 +50,7 @@ public class Labyrinth {
                 if(c != null)
                     labView[y][x] = c.getType();
                 else
-                    labView[y][x] = Type.EMPTY;
+                    labView[y][x] = ViewType.EMPTY;
             }
         for(Phantom p: Phantom.getPhantoms()) 
             labView[p.getY()][p.getX()] = p.getType();
@@ -117,9 +116,9 @@ public class Labyrinth {
                     placed = true;
                 else
                 {
-                    Type t = get(x,y).getType();
+                    ViewType t = get(x,y).getType();
                     
-                    if(t == Type.PACGUM || t == Type.FRUIT || t == Type.MUSHROOM)
+                    if(t == ViewType.PACGUM || t == ViewType.FRUIT || t == ViewType.MUSHROOM)
                         placed = true;
                 }
                 

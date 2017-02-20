@@ -5,7 +5,7 @@
  */
 package View;
 
-import Control.Type;
+import Model.ViewType;
 import java.util.Observable;
 import java.util.Observer;
 import Model.GameState;
@@ -34,16 +34,16 @@ public class View implements Observer{
     }
     
     private void drawLabyrinth(GameState g) {
-        for(Type[] a: g.getLabView()) {
+        for(ViewType[] a: g.getLabView()) {
             System.out.println("");
-            for(Type t: a) {
+            for(ViewType t: a) {
                 drawType(t);
             }
         }
         displayInfo();
     }
     
-    public void drawType(Type t) {
+    public void drawType(ViewType t) {
         String s = "";
         switch(t) 
         {

@@ -6,7 +6,6 @@
 package Model;
 
 import Control.ControllerFX;
-import Control.Type;
 import Control.Dir;
 
 /**
@@ -126,8 +125,8 @@ public class PacMan implements Character{
     }
     
     @Override
-    public Type getType() {
-        return Type.PACMAN;
+    public ViewType getType() {
+        return ViewType.PACMAN;
     }
 
     @Override

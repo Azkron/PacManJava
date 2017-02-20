@@ -5,8 +5,6 @@
  */
 package Model;
 
-import Control.Type;
-
 /**
  *
  * @author Hugo
@@ -19,8 +17,8 @@ public class Mushroom implements Consumable{
     }
 
     @Override
-    public Type getType() {
-        return Type.MUSHROOM;
+    public ViewType getType() {
+        return ViewType.MUSHROOM;
     }
     
 }

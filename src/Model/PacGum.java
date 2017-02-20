@@ -5,8 +5,6 @@
  */
 package Model;
 
-import Control.Type;
-
 /**
  *
  * @author Hugo
@@ -34,8 +32,8 @@ public class PacGum implements Consumable{
 
 
     @Override
-    public Type getType() {
-        return Type.PACGUM;
+    public ViewType getType() {
+        return ViewType.PACGUM;
     }
     
 }

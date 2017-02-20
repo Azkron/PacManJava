@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Model;
 
 /**
  *
  * @author Hugo
  */
-public enum Type {
+public enum ViewType {
     PACMAN, PHANTOM, PACGUM, FRUIT, MUSHROOM, WALL, EMPTY
 }

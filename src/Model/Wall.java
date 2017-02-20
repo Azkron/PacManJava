@@ -5,8 +5,6 @@
  */
 package Model;
 
-import Control.Type;
-
 /**
  *
  * @author Hugo
@@ -14,8 +12,8 @@ import Control.Type;
 public class Wall implements GameObject{
 
     @Override
-    public Type getType() {
-        return Type.WALL;
+    public ViewType getType() {
+        return ViewType.WALL;
     }
     
 }
