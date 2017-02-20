@@ -15,7 +15,7 @@ import java.util.Random;
  */
 
 public class Labyrinth {
-    private Case[][] lab;
+    private GameObject[][] lab;
     private int xSize, ySize;
     
     private static final Labyrinth INSTANCE = new Labyrinth();
@@ -30,12 +30,12 @@ public class Labyrinth {
             initLab();
     }
     
-    public Case get(int x, int y)
+    public GameObject get(int x, int y)
     {
         return lab[y][x];
     }
     
-    public void set(int x, int y, Case c)
+    public void set(int x, int y, GameObject c)
     {
         lab[y][x] = c;
     }
@@ -47,7 +47,7 @@ public class Labyrinth {
         for(int y = 0; y < ySize; ++y)
             for(int x = 0; x < xSize; ++x)
             {
-                Case c = get(x,y);
+                GameObject c = get(x,y);
                 if(c != null)
                     labView[y][x] = c.getType();
                 else
@@ -93,7 +93,7 @@ public class Labyrinth {
         xSize = tab[0].length;
         ySize = tab.length;
         
-        lab = new Case[ySize][xSize];
+        lab = new GameObject[ySize][xSize];
         for(int y = 0; y < ySize; ++y)
             for(int x = 0; x < xSize; ++x)             
                 lab[y][x] = caseFromTab(tab[y][x], x, y);
@@ -130,7 +130,7 @@ public class Labyrinth {
         
     }
     
-    private Case caseFromTab(int i, int x, int y)
+    private GameObject caseFromTab(int i, int x, int y)
     {
         //0 : rien
         //1 : mur

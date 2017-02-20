@@ -10,7 +10,7 @@ import Control.Dir;
  *
  * @author Hugo
  */
-public interface Character extends Case {
+public interface Character extends GameObject {
     
     public void move(Dir d);
     

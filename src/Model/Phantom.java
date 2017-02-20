@@ -86,7 +86,7 @@ public class Phantom implements Character{
             int nextX = getNextX(d), nextY = getNextY(d);
             if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize())
             {
-                Case c = lab.get(nextX, nextY);
+                GameObject c = lab.get(nextX, nextY);
                 if( c == null || (c.getType() != Type.WALL  && (ignorePhantoms || c.getType() != Type.PHANTOM)))
                         ld.add(d);
             }
@@ -140,11 +140,11 @@ public class Phantom implements Character{
                 // eheck phantom collision
                 if(p != null)
                 {
-                    new ComposedPhantom(this, p);
+                    compose(this, p);
                 }
                 else
                 {
-                    Case c = lab.get(nextX, nextY);
+                    GameObject c = lab.get(nextX, nextY);
                     if(c == null)
                         moveInLab(nextX, nextY);
                     else

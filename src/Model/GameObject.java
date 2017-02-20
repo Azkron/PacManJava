@@ -10,7 +10,7 @@ import Control.Type;
  *
  * @author Hugo
  */
-public interface Case {
+public interface GameObject {
     
     public Type getType();
     

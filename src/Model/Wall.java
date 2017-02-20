@@ -11,7 +11,7 @@ import Control.Type;
  *
  * @author Hugo
  */
-public class Wall implements Case{
+public class Wall implements GameObject{
 
     @Override
     public Type getType() {

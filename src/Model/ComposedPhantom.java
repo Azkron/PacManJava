@@ -34,7 +34,7 @@ public class ComposedPhantom extends Phantom{
     @Override
     public void move(Dir d) 
     {
-        decomposeCount -= ControllerFX.getFrameTime() * (MAX_MOVE_COUNT+1); // multiplied by the phantom move speed modifier so as to stay in real time
+        decomposeCount -= ControllerFX.getFrameTime() * (MAX_MOVE_COUNT+2); // multiplied by the phantom move speed modifier so as to stay in real time
         if(decomposeCount <= 0)
             decompose();
         else

@@ -98,7 +98,7 @@ public class PacMan implements Character{
             // move only if not killed by phantom
             if(!killed)
             {
-                Case c = lab.get(nextX, nextY);
+                GameObject c = lab.get(nextX, nextY);
 
                 if(c == null)
                     moveInLab(nextX, nextY);
