@@ -13,7 +13,13 @@ import Control.Dir;
 public abstract class Character extends GameObject {
     
     private static Labyrinth lab = null;
-    int x, y, startX, startY;
+    int startX, startY;
+
+    public Character(int x, int y) {
+        super(x, y);
+        startX = x;
+        startY = y;
+    }
     
     abstract public void move(Dir d);
     
@@ -33,15 +39,6 @@ public abstract class Character extends GameObject {
         moveInLab(startX, startY);
     }
     
-    int getX()
-    {
-        return x;
-    }
-    
-    int getY()
-    {
-        return y;
-    }
     
     boolean PacManPhantomCollision(PacMan pacman, Phantom phantom) // true if pacman wins and false if phantom wins
     {
@@ -54,13 +51,6 @@ public abstract class Character extends GameObject {
             pacman.kill(phantom.getPower());
             return false;
         }
-    }
-    
-    
-    void setXY(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
     }
     
     int getNextY(Dir d) {

@@ -11,8 +11,13 @@ package Model;
  */
 public class Mushroom extends Consumable{
 
+    public Mushroom(int x, int y) {
+        super(x, y);
+    }
+
     @Override
     public void Consume() {
+        super.Consume();
         // NOT YET IMPLENTED IN THIS ITERATION
     }
 

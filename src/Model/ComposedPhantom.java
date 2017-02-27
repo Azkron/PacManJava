@@ -21,14 +21,21 @@ public class ComposedPhantom extends Phantom{
     private int decomposeCount;
     
     public ComposedPhantom(Phantom p1, Phantom p2) {
-        super(p1.getX(), p1.getY(), Labyrinth.getInstance());
+        super(p1.getX(), p1.getY());
         decomposeCount = DECOMPOSEMAX;
-        power = p1.getPower() + p2.getPower();
+        power = 0;
         pList = new ArrayList<>();
-        pList.add(p1);
-        pList.add(p2);
-        phantoms.remove(p1);
-        phantoms.remove(p2);
+        add(p1);
+        add(p2);
+        lab().add(x, y, this);
+    }
+    
+    void add(Phantom p)
+    {
+        power += p.getPower();
+        pList.add(p);
+        phantoms.remove(p);
+        lab().remove(p.getX(), p.getY(), p);
     }
     
     @Override
@@ -43,19 +50,22 @@ public class ComposedPhantom extends Phantom{
     
     public void decompose()
     {
-        
-        for(Phantom p : pList)
+        if(changeDirection(false) != Dir.NONE)
         {
-            p.x = this.x;
-            p.y = this.y;
-            
-            if(p instanceof ComposedPhantom)
-                ((ComposedPhantom)p).decomposeCount = DECOMPOSEMAX;
-            
-            phantoms.add(p);
-            p.move(p.changeDirection(false));// change direction with ignorePhantoms set to false so that it tries to avoid them
+            for(Phantom p : pList)
+            {
+                p.x = this.x;
+                p.y = this.y;
+                lab().add(p.x, p.y, p);
+                phantoms.add(p);
+
+                if(p instanceof ComposedPhantom)
+                    ((ComposedPhantom)p).decomposeCount = DECOMPOSEMAX;
+
+                p.move(p.changeDirection(true));// change direction with ignorePhantoms set to false so that it tries to avoid them
+            }
+
+            phantoms.remove(this);
         }
-        
-        phantoms.remove(this);
     }
 }

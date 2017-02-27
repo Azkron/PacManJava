@@ -29,14 +29,39 @@ public class Labyrinth {
             initLab();
     }
     
-    public Case get(int x, int y)
+    Case get(int x, int y)
     {
         return lab[y][x];
     }
     
-    public void set(int x, int y, Case c)
+    void set(int x, int y, Case c)
     {
         lab[y][x] = c;
+    }
+    
+    void add(int x, int y, PacMan pacman)
+    {
+        get(x,y).add(pacman);
+    }
+    
+    void add(int x, int y, Phantom phantom)
+    {
+        get(x,y).add(phantom);
+    }
+    
+    void remove(int x, int y, PacMan pacman)
+    {
+        get(x,y).remove(pacman);
+    }
+    
+    void remove(int x, int y, Phantom phantom)
+    {
+        get(x,y).remove(phantom);
+    }
+    
+    void remove(int x, int y, Consumable consumable)
+    {
+        get(x,y).remove(consumable);
     }
     
     public ArrayList<Type>[][] getLabView()
@@ -137,13 +162,13 @@ public class Labyrinth {
                 break;
             case 2 : c.add(new PacMan(x,y));
                 break;
-            case 3 : c.add(new Phantom(x, y, this));
+            case 3 : c.add(new Phantom(x, y));
                 break;
-            case 4 : c.add(new PacGum());
+            case 4 : c.add(new PacGum(x, y));
                 break;
-            case 5 : c.add(new Fruit());
+            case 5 : c.add(new Fruit(x, y));
                 break;
-            case 6 : c.add(new Mushroom());
+            case 6 : c.add(new Mushroom(x, y));
                 break;
             default : throw new RuntimeException("Initial array value not recognized");
         }

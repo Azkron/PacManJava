@@ -7,6 +7,7 @@ package Model;
 
 import Control.ControllerFX;
 import Control.Dir;
+import java.util.List;
 
 /**
  *
@@ -27,6 +28,7 @@ public class PacMan extends Character {
 
     public PacMan(int x, int y) 
     {
+        super(x,y);
         if (INSTANCE == null) 
         {
             INSTANCE = this;
@@ -35,11 +37,6 @@ public class PacMan extends Character {
         {
             throw new RuntimeException("There can only be one PacMan");
         }
-
-        startX = x;
-        startY = y;
-        this.x = startX;
-        this.y = startY;
     }
 
     public static void makeSuper() 
@@ -91,8 +88,9 @@ public class PacMan extends Character {
                 if (!killed) 
                 {
                     moveInLab(nextX, nextY);
-                    for(Consumable cons : c.getConsumables())
-                        cons.Consume();
+                    List<Consumable> li = c.getConsumables();
+                    while(li.size() > 0)
+                        li.get(0).Consume();
                 }
             }
 
@@ -118,5 +116,10 @@ public class PacMan extends Character {
         lab().get(getX(), getY()).remove(this);
         setXY(nextX, nextY);
         lab().get(getX(), getY()).add(this);
+    }
+    
+    @Override
+    public Type getType() {
+        return Type.PACMAN;
     }
 }

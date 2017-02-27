@@ -13,8 +13,9 @@ public class PacGum extends Consumable{
 
     static private int total;
     
-    PacGum()
+    PacGum(int x, int y)
     {
+        super(x,y);
         ++total;
     }
     
@@ -25,12 +26,11 @@ public class PacGum extends Consumable{
     
     @Override
     public void Consume() {
+        super.Consume();
         GameState.addScore(1);
         --total;
     }
     
-
-
     @Override
     public Type getType() {
         return Type.PACGUM;

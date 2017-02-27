@@ -13,8 +13,9 @@ public class Fruit extends Consumable{
 
     private static int total;
     
-    Fruit()
+    Fruit(int x, int y)
     {
+        super(x,y);
         ++total;
     }
     
@@ -25,6 +26,7 @@ public class Fruit extends Consumable{
     
     @Override
     public void Consume() {
+        super.Consume();
         makeSuper();
         total -= 1;
     }

@@ -91,14 +91,14 @@ public class Case {
         
         if(!wall)
         {
-            if(pacman != null)
-                al.add(pacman.getType());
+            for(Consumable c : consumables)
+                al.add(c.getType());
 
             if(phantom != null)
                 al.add(phantom.getType());
-
-            for(Consumable c : consumables)
-                al.add(c.getType());
+            
+            if(pacman != null)
+                al.add(pacman.getType());
         }
         else
             al.add(Type.WALL);

@@ -11,5 +11,23 @@ package Model;
  */
 public abstract class Consumable extends GameObject{
     
-    abstract void Consume();
+    
+    private static Labyrinth lab = null;
+
+    public Consumable(int x, int y) {
+        super(x, y);
+    }
+    
+    Labyrinth lab()
+    {
+        if(lab == null)
+            lab = Labyrinth.getInstance();
+        
+        return lab;
+    }
+    
+    void Consume()
+    {
+        lab().remove(getX(), getY(), this);
+    }
 }

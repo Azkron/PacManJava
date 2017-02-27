@@ -19,6 +19,7 @@ public class Phantom extends Character{
     static ArrayList<Phantom> phantoms = new ArrayList<>();
     static ArrayList<Phantom> phantomsToMove;
     Dir dir;
+    Type type;
     private static final Random rand = new Random();
     final static int MAX_MOVE_COUNT = 1;
     private static int moveCount = MAX_MOVE_COUNT;
@@ -32,13 +33,11 @@ public class Phantom extends Character{
         phantomsToMove.remove(p2);
     }
     
-    Phantom(int x, int y, Labyrinth lab)
+    Phantom(int x, int y)
     {
+        super(x,y);
+        type = Type.PHANTOM;
         power = 1;
-        startX = x;
-        startY = y;
-        this.x = startX;
-        this.y = startY;
         phantoms.add(this);
         dir = Dir.UP;
     }
@@ -163,9 +162,16 @@ public class Phantom extends Character{
     @Override
     void moveInLab(int nextX, int nextY) {
         
-        lab().get(getX(), getY()).remove(this);
+        lab().remove(getX(), getY(), this);
         setXY(nextX, nextY);
-        lab().get(getX(), getY()).add(this);
+        lab().add(getX(), getY(),this);
+    }
+    
+    
+    
+    @Override
+    public Type getType() {
+        return type;
     }
     
 }
