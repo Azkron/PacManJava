@@ -9,7 +9,7 @@ package Model;
  *
  * @author Hugo
  */
-public interface Consumable extends GameObject{
+public abstract class Consumable extends GameObject{
     
-    public void Consume();
+    abstract void Consume();
 }

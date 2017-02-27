@@ -9,7 +9,7 @@ package Model;
  *
  * @author Hugo
  */
-public class Fruit implements Consumable{
+public class Fruit extends Consumable{
 
     private static int total;
     
@@ -35,8 +35,8 @@ public class Fruit implements Consumable{
     }
 
     @Override
-    public ViewType getType() {
-        return ViewType.FRUIT;
+    public Type getType() {
+        return Type.FRUIT;
     }
     
 }

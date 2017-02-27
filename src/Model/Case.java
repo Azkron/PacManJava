@@ -6,7 +6,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,37 +13,96 @@ import java.util.List;
  * @author Hugo
  */
 public class Case {
-    private boolean wall;
-    private Phantom phantom;
-    private PacMan pacman;
-    private List<Consumable> consumables;
+    private boolean wall = false;
+    Phantom phantom = null;
+    PacMan pacman = null;
+    List<Consumable> consumables;
     
-    public Case(boolean wall, Phantom phantom, PacMan pacman, Consumable... consumables)
+    public Case()
     {
-        this.wall = wall;
-        this.phantom = phantom;
-        this.pacman = pacman;
         this.consumables = new ArrayList<>();
-        this.consumables.addAll(Arrays.asList(consumables));
     }
     
-    public boolean isWall()
+    boolean isWall()
     {
         return wall;
     }
     
-    public Phantom getPhantom()
+    void isWall(boolean wall)
+    {
+        this.wall = wall;
+    }
+    
+    void add(PacMan pacman)
+    {
+        this.pacman = pacman;
+    }
+    
+    void add(Phantom phantom)
+    {
+        this.phantom = phantom;
+    }
+    
+    void add(Consumable c)
+    {
+        consumables.add(c);
+    }
+    
+    void remove(PacMan pacman)
+    {
+        if(this.pacman == pacman)
+            this.pacman = null;
+        else
+            throw new RuntimeException("There is no pacman to be removed");
+    }
+    
+    void remove(Phantom phantom)
+    {
+        if(this.phantom == phantom)
+            this.phantom = null;
+        else
+            throw new RuntimeException("There is no phantom to be removed");
+    }
+    
+    void remove(Consumable c)
+    {
+        if(!consumables.remove(c))
+            throw new RuntimeException("There is no consumable to be removed");
+    }
+    
+    PacMan getPacMan()
+    {
+        return pacman;
+    }
+    
+    Phantom getPhantom()
     {
         return phantom;
     }
     
-    public List<Consumable> getConsumables()
+    List<Consumable> getConsumables()
     {
         return consumables;
     }
     
-    public ViewCase getViewCase()
+    ArrayList<Type> getTypeList()
     {
-        return new ViewCase();
+        ArrayList<Type> al = new ArrayList<>();
+        
+        if(!wall)
+        {
+            if(pacman != null)
+                al.add(pacman.getType());
+
+            if(phantom != null)
+                al.add(phantom.getType());
+
+            for(Consumable c : consumables)
+                al.add(c.getType());
+        }
+        else
+            al.add(Type.WALL);
+        
+        return al;
     }
 }

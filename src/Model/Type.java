@@ -9,6 +9,6 @@ package Model;
  *
  * @author Hugo
  */
-public enum ViewType {
+public enum Type {
     PACMAN, PHANTOM, PACGUM, FRUIT, MUSHROOM, WALL, EMPTY
 }

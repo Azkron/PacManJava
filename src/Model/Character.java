@@ -10,21 +10,60 @@ import Control.Dir;
  *
  * @author Hugo
  */
-public interface Character extends GameObject {
+public abstract class Character extends GameObject {
     
-    public void move(Dir d);
+    private static Labyrinth lab = null;
+    int x, y, startX, startY;
     
-    public Labyrinth getLab();
+    abstract public void move(Dir d);
     
-    public int getX();
-    public int getY();
-    public void setXY(int x, int y);
-    public int getStartX();
-    public int getStartY();
+    Labyrinth lab()
+    {
+        if(lab == null)
+            lab = Labyrinth.getInstance();
+        
+        return lab;
+    }
     
-    public void kill();
+    abstract void moveInLab(int nextX, int nextY);
+    abstract void kill();
     
-    default int getNextY(Dir d) {
+    
+    void moveToStart() {
+        moveInLab(startX, startY);
+    }
+    
+    int getX()
+    {
+        return x;
+    }
+    
+    int getY()
+    {
+        return y;
+    }
+    
+    boolean PacManPhantomCollision(PacMan pacman, Phantom phantom) // true if pacman wins and false if phantom wins
+    {
+        if(pacman.getSuper()) {
+            phantom.kill();
+            GameState.getInstance().addScore(20*phantom.getPower());
+            return true;
+        }
+        else {
+            pacman.kill(phantom.getPower());
+            return false;
+        }
+    }
+    
+    
+    void setXY(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    
+    int getNextY(Dir d) {
         int nextY = getY();
         switch(d){
             case UP:
@@ -36,7 +75,7 @@ public interface Character extends GameObject {
         }
     }
     
-    default int getNextX(Dir d) {
+    int getNextX(Dir d) {
         int nextX = getX();
         switch(d){
             case LEFT:
@@ -49,16 +88,5 @@ public interface Character extends GameObject {
     }
     
     
-    
-    default public void moveToStart() {
-        moveInLab(getStartX(), getStartY());
-    }
-    
-    default public void moveInLab(int nextX, int nextY) {
-        
-        getLab().set(getX(), getY(), null);
-        setXY(nextX, nextY);
-        getLab().set(getX(), getY(), this);
-    }
     
 }

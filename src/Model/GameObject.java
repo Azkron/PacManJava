@@ -9,8 +9,12 @@ package Model;
  *
  * @author Hugo
  */
-public interface GameObject {
+ public abstract class GameObject {
     
-    public ViewType getType();
+    private Type type;
+    Type getType()
+    {
+        return type;
+    }
     
 }

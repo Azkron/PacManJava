@@ -7,7 +7,6 @@ package Model;
 
 import Control.Dir;
 import Model.PacMan;
-import static Model.PacMan.getSuper;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,12 +14,10 @@ import java.util.Random;
  *
  * @author Hugo
  */
-public class Phantom implements Character{
+public class Phantom extends Character{
     
-    int x, y, startX, startY; 
     static ArrayList<Phantom> phantoms = new ArrayList<>();
     static ArrayList<Phantom> phantomsToMove;
-    private Labyrinth lab;
     Dir dir;
     private static final Random rand = new Random();
     final static int MAX_MOVE_COUNT = 1;
@@ -38,7 +35,6 @@ public class Phantom implements Character{
     Phantom(int x, int y, Labyrinth lab)
     {
         power = 1;
-        this.lab = lab;
         startX = x;
         startY = y;
         this.x = startX;
@@ -83,10 +79,10 @@ public class Phantom implements Character{
         for(Dir d : Dir.getSet())
         {
             int nextX = getNextX(d), nextY = getNextY(d);
-            if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize())
+            if(nextX >= 0 && nextX < lab().getXsize() && nextY >=0 && nextY < lab().getYsize())
             {
-                GameObject c = lab.get(nextX, nextY);
-                if( c == null || (c.getType() != ViewType.WALL  && (ignorePhantoms || c.getType() != ViewType.PHANTOM)))
+                Case c = lab().get(nextX, nextY);
+                if(!c.isWall()  && (!ignorePhantoms || c.getPhantom() == null))
                         ld.add(d);
             }
         }
@@ -132,83 +128,44 @@ public class Phantom implements Character{
             int nextY = getNextY(d);
             int nextX = getNextX(d);
             
-            if(nextX >= 0 && nextX < lab.getXsize() && nextY >=0 && nextY < lab.getYsize()) 
+            if(nextX >= 0 && nextX < lab().getXsize() && nextY >=0 && nextY < lab().getYsize()) 
             {
-                Phantom p = Phantom.phantomInPos(nextX, nextY);
+                Case c = lab().get(nextX, nextY);
 
-                // eheck phantom collision
-                if(p != null)
+                if(c.isWall())
                 {
-                    compose(this, p);
+                    changeDirection(true);
                 }
-                else
+                else 
                 {
-                    GameObject c = lab.get(nextX, nextY);
-                    if(c == null)
-                        moveInLab(nextX, nextY);
+                    Phantom p = c.getPhantom(); 
+                    if(p != null)
+                        compose(this, p);
                     else
-                        switch(c.getType())
+                    {
+                        PacMan pacman = c.getPacMan();
+                        if(pacman != null)
                         {
-                            case PACMAN:
-                                if(PacMan.getSuper()) {
-                                    this.kill();
-                                    GameState.addScore(20*this.getPower());
-                                }
-                                else {
-                                    ((PacMan) c).kill(this.getPower());
-                                }
-                                break;
-                            case WALL:
-                                changeDirection(true);
-                                break;
-                            default:
+                            if(!PacManPhantomCollision(pacman, this)) // if phantom wins
                                 moveInLab(nextX, nextY);
-                                break;
                         }
+                        else
+                                moveInLab(nextX, nextY);
+                    }
+                        
                 }
                 
             }
         }
     }
     
-    @Override
-    public ViewType getType() {
-        return ViewType.PHANTOM;
-    }
     
     @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-    
-    @Override
-    public int getStartX() {
-        return startX;
-    }
-
-    @Override
-    public int getStartY() {
-        return startY;
-    }
-    
-    @Override
-    public void setXY(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    @Override
-    public Labyrinth getLab() {
-        return lab;
-    }
-    
-    @Override
-    public void moveInLab(int nextX, int nextY) {       
+    void moveInLab(int nextX, int nextY) {
+        
+        lab().get(getX(), getY()).remove(this);
         setXY(nextX, nextY);
+        lab().get(getX(), getY()).add(this);
     }
+    
 }

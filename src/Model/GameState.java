@@ -7,7 +7,6 @@ package Model;
 
 import Control.Dir;
 import java.util.ArrayList;
-import javafx.beans.InvalidationListener;
 import java.util.Observable;
 
 /**
@@ -47,7 +46,7 @@ public class GameState extends Observable {
         notifyObservers(getLabView());
     } 
     
-    public ViewType[][] getLabView()
+    public ArrayList<Type>[][] getLabView()
     {
         return lab.getLabView();
     }

@@ -9,7 +9,7 @@ package Model;
  *
  * @author Hugo
  */
-public class Mushroom implements Consumable{
+public class Mushroom extends Consumable{
 
     @Override
     public void Consume() {
@@ -17,8 +17,8 @@ public class Mushroom implements Consumable{
     }
 
     @Override
-    public ViewType getType() {
-        return ViewType.MUSHROOM;
+    public Type getType() {
+        return Type.MUSHROOM;
     }
     
 }

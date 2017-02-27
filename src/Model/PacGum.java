@@ -9,7 +9,7 @@ package Model;
  *
  * @author Hugo
  */
-public class PacGum implements Consumable{
+public class PacGum extends Consumable{
 
     static private int total;
     
@@ -32,8 +32,8 @@ public class PacGum implements Consumable{
 
 
     @Override
-    public ViewType getType() {
-        return ViewType.PACGUM;
+    public Type getType() {
+        return Type.PACGUM;
     }
     
 }
