@@ -42,12 +42,12 @@ public class Phantom extends Character{
         dir = Dir.UP;
     }
     
-    public int getPower()
+    int getPower()
     {
         return power;
     }
     
-    public static void movePhantoms() 
+    static void movePhantoms() 
     {
         if(moveCount-- == 0)
         {
@@ -63,16 +63,16 @@ public class Phantom extends Character{
         }
     }
     
-    public static Phantom phantomInPos(int x, int y)
-    {
-        for(Phantom p: phantoms) 
-            if(p.getX() == x && p.getY() == y)
-                return p;
-        
-        return null;
-    }
+//    static Phantom phantomInPos(int x, int y)
+//    {
+//        for(Phantom p: phantoms) 
+//            if(p.getX() == x && p.getY() == y)
+//                return p;
+//        
+//        return null;
+//    }
     
-    public Dir changeDirection(boolean ignorePhantoms) 
+    Dir changeDirection(boolean ignorePhantoms) 
     {
         ArrayList<Dir> ld = new ArrayList<>();
         for(Dir d : Dir.getSet())
@@ -94,18 +94,18 @@ public class Phantom extends Character{
         return dir;
     }
     
-    public void kill()
+    void kill()
     {
         moveToStart();
         //phantoms.remove(this);
     }
     
-    public static ArrayList<Phantom> getPhantoms()
+    static ArrayList<Phantom> getPhantoms()
     {
         return phantoms;
     }
     
-    public static int getTotal()
+    static int getTotal()
     {
         return phantoms.size();
     }
@@ -114,14 +114,14 @@ public class Phantom extends Character{
         move(getDir());
     }
     
-    public Dir getDir()
+    Dir getDir()
     {
         return dir;
     }
     
     
     @Override
-    public void move(Dir d) {
+    void move(Dir d) {
         if(d != Dir.NONE)
         {
             int nextY = getNextY(d);

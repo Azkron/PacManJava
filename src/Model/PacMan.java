@@ -64,7 +64,7 @@ public class PacMan extends Character {
     }
 
     @Override
-    public void move(Dir d) 
+    void move(Dir d) 
     {
         int nextY = getNextY(d);
         int nextX = getNextX(d);
@@ -120,6 +120,9 @@ public class PacMan extends Character {
     
     @Override
     public Type getType() {
-        return Type.PACMAN;
+        if(!superPacMan)
+            return Type.PACMAN;
+        else
+            return Type.SUPERPACMAN;
     }
 }

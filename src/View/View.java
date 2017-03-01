@@ -36,9 +36,9 @@ public class View implements Observer{
     private void drawLabyrinth(GameState g) {
         for(ArrayList<Type>[] a: g.getLabView()) {
             System.out.println("");
-            for(ArrayList<Type> t: a) {
-                drawType(t.get(0));
-            }
+            for(ArrayList<Type> t: a)
+                if(t.size() > 0)
+                    drawType(t.get(0));
         }
         displayInfo();
     }

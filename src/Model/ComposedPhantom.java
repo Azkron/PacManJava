@@ -28,6 +28,7 @@ public class ComposedPhantom extends Phantom{
         add(p1);
         add(p2);
         lab().add(x, y, this);
+        setType();
     }
     
     void add(Phantom p)
@@ -39,7 +40,7 @@ public class ComposedPhantom extends Phantom{
     }
     
     @Override
-    public void move(Dir d) 
+    void move(Dir d) 
     {
         decomposeCount -= ControllerFX.getFrameTime() * (MAX_MOVE_COUNT+2); // multiplied by the phantom move speed modifier so as to stay in real time
         if(decomposeCount <= 0)
@@ -48,7 +49,7 @@ public class ComposedPhantom extends Phantom{
             super.move(getDir());
     }
     
-    public void decompose()
+    private void decompose()
     {
         if(changeDirection(false) != Dir.NONE)
         {
@@ -66,6 +67,24 @@ public class ComposedPhantom extends Phantom{
             }
 
             phantoms.remove(this);
+        }
+    }
+    
+    private void setType()// Sets the type of phantom based on its power
+    {
+        switch(power)
+        {
+            case 2:
+                type = Type.PHANTOM2;
+                break;
+            case 3:
+                type = Type.PHANTOM3;
+                break;
+            case 4:
+                type = Type.PHANTOM4;
+                break;
+            default:
+                throw new RuntimeException("Composed phantom power must be 2-4");
         }
     }
 }

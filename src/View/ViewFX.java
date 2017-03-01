@@ -97,14 +97,16 @@ public class ViewFX extends Observable implements Observer{
     
     private void loadImages()
     {
-        imgPacManInvincible = new Image("file:images/pacman_invincible.png");
-        imgPacMan = new Image("file:images/pacman_normal.png");
         imageMap = new HashMap<>();
-        imageMap.put(Type.PACMAN, imgPacMan);
+        imageMap.put(Type.PACMAN, new Image("file:images/pacman_normal.png"));
+        imageMap.put(Type.SUPERPACMAN, new Image("file:images/superPacMan.png"));
         //imageMap.put(Type.PACMAN, new Image("file:images/pacman.png"));
         imageMap.put(Type.PACGUM, new Image("file:images/boule_de_gomme.png"));
         imageMap.put(Type.MUSHROOM, new Image("file:images/champignon.png"));
-        imageMap.put(Type.PHANTOM, new Image("file:images/enemy_normal.png"));
+        imageMap.put(Type.PHANTOM, new Image("file:images/phantom.png"));
+        imageMap.put(Type.PHANTOM2, new Image("file:images/phantom2.png"));
+        imageMap.put(Type.PHANTOM3, new Image("file:images/phantom3.png"));
+        imageMap.put(Type.PHANTOM4, new Image("file:images/phantom4.png"));
         imageMap.put(Type.FRUIT, new Image("file:images/fruit.png"));
         imageMap.put(Type.WALL, new Image("file:images/wall.png"));
         imageMap.put(Type.EMPTY, new Image("file:images/white.gif"));
@@ -141,8 +143,6 @@ public class ViewFX extends Observable implements Observer{
     
     private void drawLabyrinth(GameState g, ArrayList<Type>[][] lab) {
         
-        setPacManImage(g);// checks if the PacMan is super and changes the image if so
-            
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, width, height);
         
@@ -154,13 +154,6 @@ public class ViewFX extends Observable implements Observer{
         displayInfo();
     }
     
-    private void setPacManImage(GameState g)
-    {
-        if(g.getSuperPacMan())
-            imageMap.put(Type.PACMAN, imgPacManInvincible);
-        else
-            imageMap.put(Type.PACMAN, imgPacMan);
-    }
     
     public void drawType(Type t, int x, int y) {
         gc.drawImage(imageMap.get(t), x, y,SIZE, SIZE);

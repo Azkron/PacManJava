@@ -21,7 +21,7 @@ public abstract class Character extends GameObject {
         startY = y;
     }
     
-    abstract public void move(Dir d);
+    abstract void move(Dir d);
     
     Labyrinth lab()
     {
