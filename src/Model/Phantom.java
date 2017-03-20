@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Control.ControllerFX;
 import Control.Dir;
 import Model.PacMan;
 import java.util.ArrayList;
@@ -21,8 +22,6 @@ public class Phantom extends Character{
     Dir dir;
     Type type;
     private static final Random rand = new Random();
-    final static int MAX_MOVE_COUNT = 1;
-    private static int moveCount = MAX_MOVE_COUNT;
     int power;
     
     private static void compose(Phantom p, Phantom p2)
@@ -49,17 +48,17 @@ public class Phantom extends Character{
     
     static void movePhantoms() 
     {
-        if(moveCount-- == 0)
+        for(Phantom p: phantoms) 
+            if(p instanceof ComposedPhantom)
+                ((ComposedPhantom) p).updateDecomposeCount(); // multiplied by the phantom move speed modifier so as to stay in real time
+        
+        phantomsToMove = new ArrayList<>(phantoms);
+
+        while(phantomsToMove.size() > 0)
         {
-            moveCount  = MAX_MOVE_COUNT;
-            phantomsToMove = new ArrayList<>(phantoms);
-            
-            while(phantomsToMove.size() > 0)
-            {
-                Phantom p = phantomsToMove.get(0);
-                p.move(); 
-                phantomsToMove.remove(p);
-            }
+            Phantom p = phantomsToMove.get(0);
+            p.move(); 
+            phantomsToMove.remove(p);
         }
     }
     

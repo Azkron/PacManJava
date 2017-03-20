@@ -28,11 +28,9 @@ public class ControllerFX extends Application implements Observer{
     private static ViewFX viewFX;
     private static InputFX inputFX;
     
-    private static double frameTime = 100;
+    private static double frameTime = 200;
     
     private static ControllerFX instance;
-    
-    private static Dir dir = Dir.NONE;
     
     public static ControllerFX getInstance()
     {
@@ -81,19 +79,22 @@ public class ControllerFX extends Application implements Observer{
     
     private void nextFrame()
     {
-        gameState.updateGameState(dir);
-        dir = Dir.NONE;            
+        gameState.updateGameState();
         checkGameOver();
     }
 
     @Override
     public void update(Observable inputObj, Object arg) {
         
-        dir = inputFX.processInput((KeyCode)arg);
+        Dir dir = inputFX.processInput((KeyCode)arg);
         
         if(dir == null) // user pressed x
             Platform.exit();
-            //System.exit(0);
+        else
+        {
+            gameState.movePacman(dir);
+            checkGameOver();
+        }
     }
     
     public static double getFrameTime()

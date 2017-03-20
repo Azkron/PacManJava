@@ -20,7 +20,8 @@ public class ComposedPhantom extends Phantom{
     private static final int DECOMPOSEMAX = 5000; // time in milliseconds
     private int decomposeCount;
     
-    public ComposedPhantom(Phantom p1, Phantom p2) {
+    public ComposedPhantom(Phantom p1, Phantom p2) 
+    {
         super(p1.getX(), p1.getY());
         decomposeCount = DECOMPOSEMAX;
         power = 0;
@@ -39,10 +40,14 @@ public class ComposedPhantom extends Phantom{
         lab().remove(p.getX(), p.getY(), p);
     }
     
+    void updateDecomposeCount() 
+    {
+        decomposeCount -= ControllerFX.getFrameTime();
+    }
+    
     @Override
     void move(Dir d) 
     {
-        decomposeCount -= ControllerFX.getFrameTime() * (MAX_MOVE_COUNT+2); // multiplied by the phantom move speed modifier so as to stay in real time
         if(decomposeCount <= 0)
             decompose();
         else

@@ -35,11 +35,17 @@ public class GameState extends Observable {
         lab = Labyrinth.getInstance();
     }
     
-    public void updateGameState(Dir d)
+    public void movePacman(Dir d) 
     {
         PacMan.getInstance().move(d);
         PacMan.updateSuper();
         
+        setChanged();
+        notifyObservers(getLabView());
+    }
+    
+    public void updateGameState()
+    {
         Phantom.movePhantoms();
         
         setChanged();
