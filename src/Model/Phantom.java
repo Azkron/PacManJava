@@ -48,10 +48,6 @@ public class Phantom extends Character{
     
     static void movePhantoms() 
     {
-        for(Phantom p: phantoms) 
-            if(p instanceof ComposedPhantom)
-                ((ComposedPhantom) p).updateDecomposeCount(); // multiplied by the phantom move speed modifier so as to stay in real time
-        
         phantomsToMove = new ArrayList<>(phantoms);
 
         while(phantomsToMove.size() > 0)

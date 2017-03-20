@@ -9,6 +9,10 @@ import Control.ControllerFX;
 import Control.Dir;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 /**
  *
@@ -17,19 +21,21 @@ import java.util.List;
 public class ComposedPhantom extends Phantom{
     
     private List<Phantom> pList;
-    private static final int DECOMPOSEMAX = 5000; // time in milliseconds
-    private int decomposeCount;
+    private static final int DECOMPOSE_START_TIME = 5000; // time in milliseconds
+    private Timeline decomposeTimeLine;
     
     public ComposedPhantom(Phantom p1, Phantom p2) 
     {
         super(p1.getX(), p1.getY());
-        decomposeCount = DECOMPOSEMAX;
         power = 0;
         pList = new ArrayList<>();
         add(p1);
         add(p2);
         lab().add(x, y, this);
         setType();
+        
+        decomposeTime = DECOMPOSE_START_TIME;
+        startDecompose();
     }
     
     void add(Phantom p)
@@ -38,20 +44,6 @@ public class ComposedPhantom extends Phantom{
         pList.add(p);
         phantoms.remove(p);
         lab().remove(p.getX(), p.getY(), p);
-    }
-    
-    void updateDecomposeCount() 
-    {
-        decomposeCount -= ControllerFX.getFrameTime();
-    }
-    
-    @Override
-    void move(Dir d) 
-    {
-        if(decomposeCount <= 0)
-            decompose();
-        else
-            super.move(getDir());
     }
     
     private void decompose()
@@ -73,6 +65,25 @@ public class ComposedPhantom extends Phantom{
 
             phantoms.remove(this);
         }
+    }
+    
+     private void startDecompose() {
+        decomposeTimeLine = new Timeline(new KeyFrame(
+                Duration.millis(DECOMPOSE_START_TIME),
+                ae -> decompose())
+        );
+        
+        decomposeTimeLine.play();                    
+    }
+    
+    private void pauseDecompose()
+    {
+        decomposeTimeLine.pause();
+    }
+    
+    private void pauseDecompose()
+    {
+        decomposeTimeLine.pause();
     }
     
     private void setType()// Sets the type of phantom based on its power
