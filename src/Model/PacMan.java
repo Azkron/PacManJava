@@ -19,7 +19,7 @@ import javafx.util.Duration;
 public class PacMan extends Character {
 
     // Coordonnees x et y du PacMAn dans le labyrinthe
-    private static boolean superPacMan;
+    private boolean superPacMan;
     private static final int SUPER_START_TIME = 5000;
     private Timeline superTimeline;
 
@@ -45,9 +45,20 @@ public class PacMan extends Character {
         
     }
     
+    PacMan(PacMan pacman) 
+    {
+        super(pacman.x,pacman.y);
+        superPacMan = pacman.superPacMan;
+        
+        superTimeline = new Timeline(new KeyFrame(
+            Duration.millis(pacman.superTimeline.getCurrentTime().toMillis()),
+            ae -> endSuper())
+        );
+    }
+    
     @Override
-    GameObject deepCopy(GameObject g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    PacMan deepCopy(GameObject g) {
+        return new PacMan((PacMan)g);
     }
 
     @Override
