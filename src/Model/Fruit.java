@@ -52,6 +52,11 @@ public class Fruit extends Consumable{
         return Type.FRUIT;
     }
 
+    @Override
+    void activate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
 }

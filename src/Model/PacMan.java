@@ -37,10 +37,6 @@ public class PacMan extends Character {
         {
             INSTANCE = this;
         } 
-        else 
-        {
-            throw new RuntimeException("There can only be one PacMan");
-        }
     
       superTimeline = new Timeline(new KeyFrame(
             Duration.millis(SUPER_START_TIME),
@@ -52,6 +48,14 @@ public class PacMan extends Character {
     @Override
     GameObject deepCopy(GameObject g) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void activate() {
+        INSTANCE = this;
+        if(isSuper())
+            startSuper();
+            
     }
     
     
@@ -84,7 +88,7 @@ public class PacMan extends Character {
     }
 
 
-    public boolean getSuper() 
+    public boolean isSuper() 
     {
         return superPacMan;
     }

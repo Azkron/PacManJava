@@ -36,4 +36,5 @@ package Model;
     }
     
     abstract GameObject deepCopy(GameObject g);
+    abstract void activate();
 }

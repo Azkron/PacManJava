@@ -35,5 +35,10 @@ public class Mushroom extends Consumable{
     Type getType() {
         return Type.MUSHROOM;
     }    
+
+    @Override
+    void activate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

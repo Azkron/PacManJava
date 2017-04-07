@@ -42,7 +42,7 @@ public abstract class Character extends GameObject {
     
     boolean PacManPhantomCollision(PacMan pacman, Phantom phantom) // true if pacman wins and false if phantom wins
     {
-        if(pacman.getSuper()) {
+        if(pacman.isSuper()) {
             phantom.kill();
             GameState.getInstance().addScore(20*phantom.getPower());
             return true;
