@@ -15,6 +15,15 @@ public class Mushroom extends Consumable{
         super(x, y);
     }
     
+    // Constructeur de copie pour le memento
+    Mushroom(Mushroom m) {
+        super(m.x, m.y);
+    }
+    
+    @Override
+    Mushroom deepCopy(GameObject g) {
+        return new Mushroom((Mushroom) g);
+    }
 
     @Override
     void Consume() {
@@ -25,16 +34,6 @@ public class Mushroom extends Consumable{
     @Override
     Type getType() {
         return Type.MUSHROOM;
-    }
-    
-//    public Mushroom deepCopy(Mushroom m) {
-//        return new Mushroom(m.x, m.y);
-//    }
-
-
-    @Override
-    Mushroom deepCopy(GameObject g) {
-        return new Mushroom(g.x, g.y);
-    }
+    }    
     
 }

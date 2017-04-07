@@ -19,6 +19,17 @@ public class Fruit extends Consumable{
         ++total;
     }
     
+    // Constructeur de copie pour le memento
+    Fruit(Fruit f) {
+        super(f.x, f.y);
+    }
+    
+    @Override
+    Fruit deepCopy(GameObject g) {
+        return new Fruit((Fruit) g);
+    }
+    
+    
     static int getTotal()
     {
         return total;
@@ -41,9 +52,6 @@ public class Fruit extends Consumable{
         return Type.FRUIT;
     }
 
-    @Override
-    Fruit deepCopy(GameObject g) {
-        return new Fruit(g.x, g.y);
-    }
+    
     
 }

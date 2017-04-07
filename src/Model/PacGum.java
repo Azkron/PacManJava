@@ -19,6 +19,16 @@ public class PacGum extends Consumable{
         ++total;
     }
     
+    // Constructeur de copie pour le memento
+    PacGum(PacGum p) {
+        super(p.x, p.y);
+    }
+    
+    @Override
+    PacGum deepCopy(GameObject g) {
+        return new PacGum((PacGum) g);
+    }
+    
     static int getTotal()
     {
         return total;
@@ -34,12 +44,6 @@ public class PacGum extends Consumable{
     @Override
     Type getType() {
         return Type.PACGUM;
-    }
-
-    @Override
-    PacGum deepCopy(GameObject g) {
-        return new PacGum(g.x, g.y);
-        // just -some changes for the commit
-    }
+    }    
     
 }
