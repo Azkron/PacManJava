@@ -48,6 +48,23 @@ public class ComposedPhantom extends Phantom{
         startDecompose();
     }
     
+    ComposedPhantom(ComposedPhantom cp) 
+    {
+        super(cp.x, cp.y);
+        power = cp.power;
+        pList = new ArrayList<>();
+        for(Phantom p : cp.pList)
+            pList.add(p.deepCopy());
+        
+    }
+    
+    Phantom deepCopy() {
+        if(g instanceof ComposedPhantom)
+            return new ComposedPhantom((ComposedPhantom) g);
+        else
+            return new Phantom((Phantom) g);
+    }
+    
     void startDecompose()
     {
         decomposeTimeLine.play();  
