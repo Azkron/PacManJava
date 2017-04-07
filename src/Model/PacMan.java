@@ -57,8 +57,8 @@ public class PacMan extends Character {
     }
     
     @Override
-    PacMan deepCopy(GameObject g) {
-        return new PacMan((PacMan)g);
+    PacMan deepCopy() {
+        return new PacMan(this);
     }
 
     @Override

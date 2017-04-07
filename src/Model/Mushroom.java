@@ -21,8 +21,8 @@ public class Mushroom extends Consumable{
     }
     
     @Override
-    Mushroom deepCopy(GameObject g) {
-        return new Mushroom((Mushroom) g);
+    Mushroom deepCopy() {
+        return new Mushroom(this);
     }
 
     @Override

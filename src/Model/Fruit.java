@@ -25,8 +25,8 @@ public class Fruit extends Consumable{
     }
     
     @Override
-    Fruit deepCopy(GameObject g) {
-        return new Fruit((Fruit) g);
+    Fruit deepCopy() {
+        return new Fruit(this);
     }
     
     

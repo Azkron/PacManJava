@@ -25,8 +25,8 @@ public class PacGum extends Consumable{
     }
     
     @Override
-    PacGum deepCopy(GameObject g) {
-        return new PacGum((PacGum) g);
+    PacGum deepCopy() {
+        return new PacGum(this);
     }
     
     static int getTotal()

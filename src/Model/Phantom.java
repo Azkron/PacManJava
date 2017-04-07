@@ -50,11 +50,11 @@ public class Phantom extends Character{
     }
     
     @Override
-    Phantom deepCopy(GameObject g) {
-        if(g instanceof ComposedPhantom)
-            return new ComposedPhantom((ComposedPhantom) g);
+    Phantom deepCopy() {
+        if(this instanceof ComposedPhantom)
+            return new ComposedPhantom((ComposedPhantom) this);
         else
-            return new Phantom((Phantom) g);
+            return new Phantom(this);
     }
     
     @Override
