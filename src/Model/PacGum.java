@@ -39,6 +39,7 @@ public class PacGum extends Consumable{
     @Override
     PacGum deepCopy(GameObject g) {
         return new PacGum(g.x, g.y);
+        // just -some changes for the commit
     }
     
 }
