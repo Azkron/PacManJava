@@ -11,19 +11,30 @@ package Model;
  */
 public class Mushroom extends Consumable{
 
-    public Mushroom(int x, int y) {
+    Mushroom(int x, int y) {
         super(x, y);
     }
+    
 
     @Override
-    public void Consume() {
+    void Consume() {
         super.Consume();
         // NOT YET IMPLENTED IN THIS ITERATION
     }
+    
+    @Override
+    Type getType() {
+        return Type.MUSHROOM;
+    }
+    
+//    public Mushroom deepCopy(Mushroom m) {
+//        return new Mushroom(m.x, m.y);
+//    }
+
 
     @Override
-    public Type getType() {
-        return Type.MUSHROOM;
+    Mushroom deepCopy(GameObject g) {
+        return new Mushroom(g.x, g.y);
     }
     
 }

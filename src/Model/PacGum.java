@@ -19,21 +19,26 @@ public class PacGum extends Consumable{
         ++total;
     }
     
-    public static int getTotal()
+    static int getTotal()
     {
         return total;
     }
     
     @Override
-    public void Consume() {
+    void Consume() {
         super.Consume();
         GameState.addScore(1);
         --total;
     }
     
     @Override
-    public Type getType() {
+    Type getType() {
         return Type.PACGUM;
+    }
+
+    @Override
+    PacGum deepCopy(GameObject g) {
+        return new PacGum(g.x, g.y);
     }
     
 }

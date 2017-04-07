@@ -19,13 +19,13 @@ public class Fruit extends Consumable{
         ++total;
     }
     
-    public static int getTotal()
+    static int getTotal()
     {
         return total;
     }
     
     @Override
-    public void Consume() {
+    void Consume() {
         super.Consume();
         makeSuper();
         total -= 1;
@@ -37,8 +37,13 @@ public class Fruit extends Consumable{
     }
 
     @Override
-    public Type getType() {
+    Type getType() {
         return Type.FRUIT;
+    }
+
+    @Override
+    Fruit deepCopy(GameObject g) {
+        return new Fruit(g.x, g.y);
     }
     
 }
