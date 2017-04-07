@@ -41,6 +41,28 @@ public class Phantom extends Character{
         dir = Dir.UP;
     }
     
+    // Constructeur de copie pour le memento
+    Phantom(Phantom p) {
+        super(p.x, p.y);
+        type = p.type;
+        power = p.power;
+        dir = p.dir;
+    }
+    
+    @Override
+    Phantom deepCopy(GameObject g) {
+        if(g instanceof ComposedPhantom)
+            return new ComposedPhantom((ComposedPhantom) g);
+        else
+            return new Phantom((Phantom) g);
+    }
+    
+    @Override
+    void activate() {
+        phantoms.add(this);
+    }
+    
+    
     int getPower()
     {
         return power;
@@ -169,14 +191,4 @@ public class Phantom extends Character{
         return type;
     }
 
-    @Override
-    GameObject deepCopy(GameObject g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    void activate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
