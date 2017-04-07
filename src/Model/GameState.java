@@ -34,7 +34,8 @@ public class GameState extends Observable {
     private GameState()
     {
         lab = Labyrinth.getInstance();
-        guardian = new Guardian();
+        guardian = Guardian.getInstance();
+       
     }
     
     public void movePacman(Dir d) 
