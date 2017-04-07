@@ -8,6 +8,9 @@ package Model;
 import Control.ControllerFX;
 import Control.Dir;
 import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 /**
  *
@@ -17,7 +20,8 @@ public class PacMan extends Character {
 
     // Coordonnees x et y du PacMAn dans le labyrinthe
     private static boolean superPacMan;
-    private static int superCount;
+    private static final int SUPER_START_TIME = 5000;
+    private Timeline superTimeline;
 
     private static PacMan INSTANCE = null;
 
@@ -26,7 +30,7 @@ public class PacMan extends Character {
         return INSTANCE;
     }
 
-    public PacMan(int x, int y) 
+    PacMan(int x, int y) 
     {
         super(x,y);
         if (INSTANCE == null) 
@@ -37,31 +41,54 @@ public class PacMan extends Character {
         {
             throw new RuntimeException("There can only be one PacMan");
         }
+    
+      superTimeline = new Timeline(new KeyFrame(
+            Duration.millis(SUPER_START_TIME),
+            ae -> endSuper())
+        );
+        
     }
+    
+    @Override
+    GameObject deepCopy(GameObject g) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    void startSuper()
+    {
+        superTimeline.play();  
+    }
+    
+    void pauseSuper()
+    {
+        superTimeline.pause();  
+    }
+    
+    void stopSuper()
+    {
+        superTimeline.stop();  
+    }
+    
+    
 
-    public static void makeSuper() 
+    public void makeSuper() 
     {
         superPacMan = true;
-        superCount = 5000;
+        startSuper();
     }
-
-    public static void updateSuper() 
+    
+    public void endSuper()
     {
-        if (superPacMan) 
-        {
-            superCount -= ControllerFX.getFrameTime();
-            if (superCount <= 0) 
-            {
-                superCount = 0;
-                superPacMan = false;
-            }
-        }
+        superPacMan = false;
     }
 
-    public static boolean getSuper() 
+
+    public boolean getSuper() 
     {
         return superPacMan;
     }
+    
 
     @Override
     void move(Dir d) 

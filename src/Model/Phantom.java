@@ -168,5 +168,10 @@ public class Phantom extends Character{
     public Type getType() {
         return type;
     }
+
+    @Override
+    GameObject deepCopy(GameObject g) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

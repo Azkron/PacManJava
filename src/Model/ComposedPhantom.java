@@ -45,8 +45,6 @@ public class ComposedPhantom extends Phantom{
             ae -> decompose())
         );
         
-        decomposeTimeLine.play();   
-        
         startDecompose();
     }
     

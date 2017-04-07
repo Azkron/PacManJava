@@ -33,7 +33,7 @@ public class Fruit extends Consumable{
     
     private void makeSuper()
     {
-        PacMan.makeSuper();
+        PacMan.getInstance().makeSuper();
     }
 
     @Override

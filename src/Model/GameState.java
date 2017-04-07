@@ -38,7 +38,6 @@ public class GameState extends Observable {
     public void movePacman(Dir d) 
     {
         PacMan.getInstance().move(d);
-        PacMan.updateSuper();
         
         setChanged();
         notifyObservers(getLabView());
@@ -69,7 +68,7 @@ public class GameState extends Observable {
     
     public static boolean getSuperPacMan()
     {
-        return PacMan.getSuper();
+        return PacMan.getInstance().getSuper();
     }
     
     public static int getLives()
