@@ -38,10 +38,7 @@ public class PacMan extends Character {
             INSTANCE = this;
         } 
     
-      superTimeline = new Timeline(new KeyFrame(
-            Duration.millis(SUPER_START_TIME),
-            ae -> endSuper())
-        );
+        startSuper();
         
     }
     
@@ -52,10 +49,7 @@ public class PacMan extends Character {
         startY = pacman.startY;
         superPacMan = pacman.superPacMan;
         
-        superTimeline = new Timeline(new KeyFrame(
-            Duration.millis(pacman.superTimeline.getCurrentTime().toMillis()),
-            ae -> endSuper())
-        );
+        setSuper(SUPER_START_TIME);
     }
     
     @Override
@@ -67,12 +61,31 @@ public class PacMan extends Character {
     void activate() {
         INSTANCE = this;
         if(isSuper())
-            startSuper();
-            
+            playSuper();
     }
     
     
+    void setSuper(double milis)
+    {
+        superTimeline = new Timeline(new KeyFrame(
+                        Duration.millis(milis),
+                        ae -> endSuper())
+                    );
+    }
+    
+    void resetSuper()
+    {
+        stopSuper();
+        startSuper();
+    }
+    
     void startSuper()
+    {
+        setSuper(SUPER_START_TIME);
+        playSuper();
+    }
+    
+    void playSuper()
     {
         superTimeline.play();  
     }
@@ -92,7 +105,7 @@ public class PacMan extends Character {
     public void makeSuper() 
     {
         superPacMan = true;
-        startSuper();
+        resetSuper();
     }
     
     public void endSuper()
@@ -108,7 +121,7 @@ public class PacMan extends Character {
     
 
     @Override
-    void move(Dir d) 
+    boolean move(Dir d) 
     {
         int nextY = getNextY(d);
         int nextX = getNextX(d);
@@ -123,29 +136,24 @@ public class PacMan extends Character {
 
                 // eheck phantom collision
                 if (phantom != null) 
-                {
                     if(!PacManPhantomCollision(this, phantom)) // if pacman looses
-                        killed = true;
-                }
+                        return false;
 
                 // move only if not killed by phantom
-                if (!killed) 
-                {
-                    moveInLab(nextX, nextY);
-                    List<Consumable> li = c.getConsumables();
-                    while(li.size() > 0)
-                        li.get(0).Consume();
-                }
+                moveInLab(nextX, nextY);
+                List<Consumable> li = c.getConsumables();
+                while(li.size() > 0)
+                    li.get(0).Consume();
             }
-
         }
-
+        
+        return true;
     }
 
     public void kill(int livesLost) 
     {
         GameState.looseLifes(livesLost);
-        kill();
+        //kill();
     }
 
     @Override

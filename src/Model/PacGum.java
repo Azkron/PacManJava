@@ -13,6 +13,11 @@ public class PacGum extends Consumable{
 
     static private int total;
     
+    static void reset()
+    {
+        total = 0;
+    }
+    
     PacGum(int x, int y)
     {
         super(x,y);

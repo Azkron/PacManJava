@@ -35,41 +35,50 @@ public class GameState extends Observable {
     {
         lab = Labyrinth.getInstance();
         guardian = Guardian.getInstance();
-       
+        for(int i = 0; i < 5; ++i)
+            createMemento();
     }
     
     public void movePacman(Dir d) 
     {
-        PacMan.getInstance().move(d);
-        
-        setChanged();
-        notifyObservers(getLabView());
+        if(PacMan.getInstance().move(d))// if pacman gets killed we load the memento, so no need to notify the view
+        {
+            setChanged();
+            notifyObservers(getLabView());
+        }
     }
     
     public void updateGameState()
     {
-        Phantom.movePhantoms();
-        
-        setChanged();
-        notifyObservers(getLabView());
+        if(Phantom.movePhantoms())// if pacman gets killed we load the memento, so no need to notify the view
+        {
+            setChanged();
+            notifyObservers(getLabView());
+        }
     } 
     
     void createMemento()
     {
-        Memento m = new Memento(lab.deepCopy());
+        Memento m = new Memento(lab.deepCopy(), score);
         guardian.addMemento(m);
     }
     
     static void setMemento(Memento m)
     {
+        score = m.getScore();
+        Phantom.reset();
+        PacGum.reset();
+        Fruit.reset();
         lab = m.getLab();
         lab.activate();
     }
     
     public static void looseLifes(int amount) 
     {
+        System.out.println("Loosed: " + amount);
         Memento m = guardian.getMemento(amount);
-        setMemento(m);
+        if(m != null)
+            setMemento(m);
     }
     
     public ArrayList<Type>[][] getLabView()

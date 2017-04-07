@@ -12,7 +12,13 @@ import java.util.Stack;
  * @author Hugo
  */
 public class Guardian {
-    private Stack<Memento> mementos;
+    private static final Guardian INSTANCE = new Guardian();
+    private static final Stack<Memento> mementos = new Stack<>();
+    
+    static Guardian getInstance()
+    {
+        return INSTANCE;
+    }
     
     void addMemento(Memento m)
     {
@@ -21,10 +27,18 @@ public class Guardian {
     
     Memento getMemento(int pos)
     {
-        for(int i = 0; i < pos-1; ++i)
-            mementos.pop();
-        
-        return mementos.pop();
+        if(mementos.size() >= pos)
+        {
+            for(int i = 0; i < pos-1; ++i)
+                mementos.pop();
+
+            return mementos.pop();
+        }
+        else
+        {
+            mementos.clear();
+            return null;
+        }
     }
     
     int getSize()

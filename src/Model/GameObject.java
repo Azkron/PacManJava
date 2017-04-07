@@ -15,8 +15,7 @@ package Model;
     
     GameObject(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        setXY(x, y);
     }
     
     final int getX()

@@ -12,7 +12,6 @@ import Control.Dir;
  */
 public abstract class Character extends GameObject {
     
-    private static Labyrinth lab = null;
     int startX, startY;
 
     public Character(int x, int y, boolean setStart) {
@@ -24,14 +23,12 @@ public abstract class Character extends GameObject {
         }
     }
     
-    abstract void move(Dir d);
+     // returns false if pacman gets killed as then we have to load the memento
+    abstract boolean move(Dir d);
     
     Labyrinth lab()
     {
-        if(lab == null)
-            lab = Labyrinth.getInstance();
-        
-        return lab;
+        return Labyrinth.getInstance();
     }
     
     abstract void moveInLab(int nextX, int nextY);

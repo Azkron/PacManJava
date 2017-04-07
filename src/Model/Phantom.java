@@ -19,10 +19,15 @@ public class Phantom extends Character{
     
     static ArrayList<Phantom> phantoms = new ArrayList<>();
     static ArrayList<Phantom> phantomsToMove;
+    private static final Random rand = new Random();
     Dir dir;
     Type type;
-    private static final Random rand = new Random();
     int power;
+    
+    static void reset()
+    {
+        phantoms = new ArrayList<>();
+    }
     
     private static void compose(Phantom p, Phantom p2)
     {
@@ -70,16 +75,19 @@ public class Phantom extends Character{
         return power;
     }
     
-    static void movePhantoms() 
+    static boolean movePhantoms() // returns false if pacman gets killed and we have to load the memento
     {
+        
         phantomsToMove = new ArrayList<>(phantoms);
-
         while(phantomsToMove.size() > 0)
         {
             Phantom p = phantomsToMove.get(0);
-            p.move(); 
+            if(!p.move()) // if pacman gets killed an we have to load the memento
+                return false;
             phantomsToMove.remove(p);
         }
+        
+        return true;
     }
     
 //    static Phantom phantomInPos(int x, int y)
@@ -129,8 +137,8 @@ public class Phantom extends Character{
         return phantoms.size();
     }
     
-    void move() {
-        move(getDir());
+    boolean move() {
+        return move(getDir());
     }
     
     Dir getDir()
@@ -140,7 +148,7 @@ public class Phantom extends Character{
     
     
     @Override
-    void move(Dir d) {
+    boolean move(Dir d) {
         if(d != Dir.NONE)
         {
             int nextY = getNextY(d);
@@ -164,17 +172,19 @@ public class Phantom extends Character{
                         PacMan pacman = c.getPacMan();
                         if(pacman != null)
                         {
-                            if(!PacManPhantomCollision(pacman, this)) // if phantom wins
-                                moveInLab(nextX, nextY);
+                            if(!PacManPhantomCollision(pacman, this)) // pacman gets killed and we have to load the next memento
+                                return false;
                         }
-                        else
-                                moveInLab(nextX, nextY);
+                        else{}
+                            moveInLab(nextX, nextY);
                     }
                         
                 }
                 
             }
         }
+        
+        return true;
     }
     
     

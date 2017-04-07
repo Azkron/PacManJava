@@ -10,15 +10,22 @@ package Model;
  * @author Hugo
  */
 public class Memento {
-    final Labyrinth lab;
+    private final Labyrinth lab;
+    private final int score;
     
-    Memento(Labyrinth lab)
+    Memento(Labyrinth lab, int score)
     {
         this.lab = lab;
+        this.score = score;
     }
     
     Labyrinth getLab()
     {
         return lab;
+    }
+    
+    int getScore()
+    {
+        return score;
     }
 }

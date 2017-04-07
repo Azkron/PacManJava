@@ -13,6 +13,11 @@ public class Fruit extends Consumable{
 
     private static int total;
     
+    static void reset()
+    {
+        total = 0;
+    }
+    
     Fruit(int x, int y)
     {
         super(x,y);

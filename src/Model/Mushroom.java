@@ -28,7 +28,7 @@ public class Mushroom extends Consumable{
     @Override
     void Consume() {
         super.Consume();
-        // NOT YET IMPLENTED IN THIS ITERATION
+        GameState.getInstance().createMemento();
     }
     
     @Override
@@ -38,7 +38,7 @@ public class Mushroom extends Consumable{
 
     @Override
     void activate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

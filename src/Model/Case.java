@@ -26,8 +26,17 @@ public class Case {
     Case(Case c)
     {
         wall = c.wall;
-        phantom = c.phantom.deepCopy();
-        pacman = c.pacman.deepCopy();
+        
+        if(c.phantom != null)
+            phantom = c.phantom.deepCopy();
+        else
+            phantom = null;
+        
+        if(c.pacman != null)
+            pacman = c.pacman.deepCopy();
+        else
+            pacman = null;
+        
         consumables = new ArrayList<>();
         for(Consumable con : c.consumables)
             consumables.add((Consumable)con.deepCopy());

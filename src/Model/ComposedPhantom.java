@@ -40,11 +40,6 @@ public class ComposedPhantom extends Phantom{
         if(p2 instanceof ComposedPhantom)
             ((ComposedPhantom)p2).stopDecompose();
         
-        decomposeTimeLine = new Timeline(new KeyFrame(
-            Duration.millis(DECOMPOSE_START_TIME),
-            ae -> decompose())
-        );
-        
         startDecompose();
     }
     
@@ -55,10 +50,7 @@ public class ComposedPhantom extends Phantom{
         for(Phantom p : cp.pList)
             pList.add(p.deepCopy());
         
-        decomposeTimeLine = new Timeline(new KeyFrame(
-            Duration.millis(cp.decomposeTimeLine.getCurrentTime().toMillis()),
-            ae -> decompose())
-        );
+        setDecompose(cp.decomposeTimeLine.getCurrentTime().toMillis());
         
     }
     
@@ -70,11 +62,32 @@ public class ComposedPhantom extends Phantom{
     @Override
     void activate()
     {
-        startDecompose();
+        playDecompose();
         super.activate();
     }
     
+    void setDecompose(double milis)
+    {
+        decomposeTimeLine = new Timeline(new KeyFrame(
+                        Duration.millis(milis),
+                        ae -> decompose())
+                    );
+        
+    }
+    
+    void resetDecompose()
+    {
+        stopDecompose();
+        startDecompose();
+    }
+    
     void startDecompose()
+    {
+        setDecompose(DECOMPOSE_START_TIME);
+        playDecompose();
+    }
+    
+    void playDecompose()
     {
         decomposeTimeLine.play();  
     }
@@ -109,7 +122,7 @@ public class ComposedPhantom extends Phantom{
                 phantoms.add(p);
 
                 if(p instanceof ComposedPhantom)
-                    ((ComposedPhantom)p).startDecompose();
+                    ((ComposedPhantom)p).resetDecompose();
 
                 p.move(p.changeDirection(true));// change direction with ignorePhantoms set to false so that it tries to avoid them
             }
