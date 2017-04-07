@@ -66,6 +66,12 @@ public class ComposedPhantom extends Phantom{
         super.activate();
     }
     
+    // to stop the timeline if the garbage collector takes time
+    void disconnect()
+    {
+        stopDecompose();
+    }
+    
     void setDecompose(double milis)
     {
         decomposeTimeLine = new Timeline(new KeyFrame(

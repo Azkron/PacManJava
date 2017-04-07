@@ -64,6 +64,12 @@ public class PacMan extends Character {
             playSuper();
     }
     
+    // to stop the timeline if the garbage collector takes time
+    void disconnect()
+    {
+        stopSuper();
+    }
+    
     
     void setSuper(double milis)
     {

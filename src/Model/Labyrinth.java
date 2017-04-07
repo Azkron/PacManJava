@@ -29,6 +29,28 @@ public class Labyrinth {
         initLab();
     }
     
+    
+    void disconnect()
+    {
+        System.out.println("disconnect");
+        PacMan.getInstance().disconnect();
+        
+        for(Phantom p : Phantom.getPhantoms())
+        {
+            System.out.println("for loop");
+            if(p instanceof ComposedPhantom)
+            {
+                System.out.println("disconnect phantom");
+                ComposedPhantom cp = (ComposedPhantom)p;
+                cp.disconnect();
+            }
+        }
+        
+        Phantom.reset();
+        PacGum.reset();
+        Fruit.reset();
+    }
+    
     Labyrinth(Labyrinth l)
     {
         xSize = l.xSize;

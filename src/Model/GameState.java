@@ -65,10 +65,9 @@ public class GameState extends Observable {
     
     static void setMemento(Memento m)
     {
+        System.out.println("set memento");
         score = m.getScore();
-        Phantom.reset();
-        PacGum.reset();
-        Fruit.reset();
+        lab.disconnect();// to clear the old labyrinth, otherwise the garbage collector can take some time and create bugs
         lab = m.getLab();
         lab.activate();
     }
