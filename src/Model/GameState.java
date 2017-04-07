@@ -14,9 +14,10 @@ import java.util.Observable;
  * @author Hugo
  */
 public class GameState extends Observable {
-    private static int score, lives = 5;
+    private static int score;
+    private static Guardian guardian;
     
-    private Labyrinth lab;
+    private static Labyrinth lab;
     
     private static GameState INSTANCE;
     
@@ -33,6 +34,7 @@ public class GameState extends Observable {
     private GameState()
     {
         lab = Labyrinth.getInstance();
+        guardian = new Guardian();
     }
     
     public void movePacman(Dir d) 
@@ -50,6 +52,24 @@ public class GameState extends Observable {
         setChanged();
         notifyObservers(getLabView());
     } 
+    
+    void createMemento()
+    {
+        Memento m = new Memento(lab.deepCopy());
+        guardian.addMemento(m);
+    }
+    
+    static void setMemento(Memento m)
+    {
+        lab = m.getLab();
+        lab.activate();
+    }
+    
+    public static void looseLifes(int amount) 
+    {
+        Memento m = guardian.getMemento(amount);
+        setMemento(m);
+    }
     
     public ArrayList<Type>[][] getLabView()
     {
@@ -73,7 +93,7 @@ public class GameState extends Observable {
     
     public static int getLives()
     {
-        return lives;
+        return guardian.getSize();
     }
     
     public static int getPhantoms()
@@ -89,9 +109,5 @@ public class GameState extends Observable {
     public static int getPacGum()
     {
         return PacGum.getTotal();
-    }
-    
-    public static void looseLifes(int amount) {
-        lives -= amount;
     }
 }

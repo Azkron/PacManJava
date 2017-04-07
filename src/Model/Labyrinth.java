@@ -17,7 +17,7 @@ public class Labyrinth {
     private Case[][] lab;
     private int xSize, ySize;
     
-    private static final Labyrinth INSTANCE = new Labyrinth();
+    private static Labyrinth INSTANCE = new Labyrinth();
     
     static Labyrinth getInstance()
     {
@@ -26,7 +26,31 @@ public class Labyrinth {
     
     private Labyrinth()
     {
-            initLab();
+        initLab();
+    }
+    
+    Labyrinth(Labyrinth l)
+    {
+        xSize = l.xSize;
+        ySize = l.ySize;
+        lab = new Case[ySize][xSize];
+        
+        for(int y = 0; y < ySize; ++y)
+            for(int x = 0; x < xSize; ++x)             
+                lab[y][x] = l.lab[y][x].deepCopy();
+    }
+    
+    Labyrinth deepCopy()
+    {
+        return new Labyrinth(this);
+    }
+    
+    void activate()
+    {
+        INSTANCE = this;
+        for(int y = 0; y < ySize; ++y)
+            for(int x = 0; x < xSize; ++x)             
+                lab[y][x].activate();
     }
     
     Case get(int x, int y)

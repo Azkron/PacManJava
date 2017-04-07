@@ -18,12 +18,12 @@ public class Case {
     PacMan pacman = null;
     List<Consumable> consumables;
     
-    public Case()
+    Case()
     {
         this.consumables = new ArrayList<>();
     }
     
-    public Case(Case c)
+    Case(Case c)
     {
         wall = c.wall;
         phantom = c.phantom.deepCopy();
@@ -31,6 +31,18 @@ public class Case {
         consumables = new ArrayList<>();
         for(Consumable con : c.consumables)
             consumables.add((Consumable)con.deepCopy());
+    }
+    
+    void activate()
+    {
+        if(phantom != null)
+            phantom.activate();
+        
+        if(pacman != null)
+            pacman.activate();
+        
+        for(Consumable con : consumables)
+            con.activate();
     }
     
     Case deepCopy()
