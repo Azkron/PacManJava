@@ -34,7 +34,7 @@ public class Phantom extends Character{
     
     Phantom(int x, int y)
     {
-        super(x,y);
+        super(x,y, true);
         type = Type.PHANTOM;
         power = 1;
         phantoms.add(this);
@@ -43,7 +43,9 @@ public class Phantom extends Character{
     
     // Constructeur de copie pour le memento
     Phantom(Phantom p) {
-        super(p.x, p.y);
+        super(p.x, p.y, false);
+        startX = p.startX;
+        startY = p.startY;
         type = p.type;
         power = p.power;
         dir = p.dir;

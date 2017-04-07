@@ -23,6 +23,21 @@ public class Case {
         this.consumables = new ArrayList<>();
     }
     
+    public Case(Case c)
+    {
+        wall = c.wall;
+        phantom = c.phantom.deepCopy();
+        pacman = c.pacman.deepCopy();
+        consumables = new ArrayList<>();
+        for(Consumable con : c.consumables)
+            consumables.add((Consumable)con.deepCopy());
+    }
+    
+    Case deepCopy()
+    {
+        return new Case(this);
+    }
+    
     boolean isWall()
     {
         return wall;

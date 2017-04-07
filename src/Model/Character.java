@@ -15,10 +15,13 @@ public abstract class Character extends GameObject {
     private static Labyrinth lab = null;
     int startX, startY;
 
-    public Character(int x, int y) {
+    public Character(int x, int y, boolean setStart) {
         super(x, y);
-        startX = x;
-        startY = y;
+        if(setStart)
+        {
+            startX = x;
+            startY = y;
+        }
     }
     
     abstract void move(Dir d);

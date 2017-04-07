@@ -32,7 +32,7 @@ public class PacMan extends Character {
 
     PacMan(int x, int y) 
     {
-        super(x,y);
+        super(x,y, true);
         if (INSTANCE == null) 
         {
             INSTANCE = this;
@@ -47,7 +47,9 @@ public class PacMan extends Character {
     
     PacMan(PacMan pacman) 
     {
-        super(pacman.x,pacman.y);
+        super(pacman.x,pacman.y, false);
+        startX = pacman.startX;
+        startY = pacman.startY;
         superPacMan = pacman.superPacMan;
         
         superTimeline = new Timeline(new KeyFrame(
