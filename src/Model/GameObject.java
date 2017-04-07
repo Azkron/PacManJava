@@ -35,4 +35,5 @@ package Model;
         this.y = y;
     }
     
+    abstract GameObject deepCopy(GameObject g);
 }

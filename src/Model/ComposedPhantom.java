@@ -34,8 +34,35 @@ public class ComposedPhantom extends Phantom{
         lab().add(x, y, this);
         setType();
         
-        decomposeTime = DECOMPOSE_START_TIME;
+        if(p1 instanceof ComposedPhantom)
+            ((ComposedPhantom)p1).stopDecompose();
+        
+        if(p2 instanceof ComposedPhantom)
+            ((ComposedPhantom)p2).stopDecompose();
+        
+        decomposeTimeLine = new Timeline(new KeyFrame(
+            Duration.millis(DECOMPOSE_START_TIME),
+            ae -> decompose())
+        );
+        
+        decomposeTimeLine.play();   
+        
         startDecompose();
+    }
+    
+    void startDecompose()
+    {
+        decomposeTimeLine.play();  
+    }
+    
+    void pauseDecompose()
+    {
+        decomposeTimeLine.pause();  
+    }
+    
+    void stopDecompose()
+    {
+        decomposeTimeLine.stop();  
     }
     
     void add(Phantom p)
@@ -58,32 +85,13 @@ public class ComposedPhantom extends Phantom{
                 phantoms.add(p);
 
                 if(p instanceof ComposedPhantom)
-                    ((ComposedPhantom)p).decomposeCount = DECOMPOSEMAX;
+                    ((ComposedPhantom)p).startDecompose();
 
                 p.move(p.changeDirection(true));// change direction with ignorePhantoms set to false so that it tries to avoid them
             }
 
             phantoms.remove(this);
         }
-    }
-    
-     private void startDecompose() {
-        decomposeTimeLine = new Timeline(new KeyFrame(
-                Duration.millis(DECOMPOSE_START_TIME),
-                ae -> decompose())
-        );
-        
-        decomposeTimeLine.play();                    
-    }
-    
-    private void pauseDecompose()
-    {
-        decomposeTimeLine.pause();
-    }
-    
-    private void pauseDecompose()
-    {
-        decomposeTimeLine.pause();
     }
     
     private void setType()// Sets the type of phantom based on its power
