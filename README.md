@@ -1,3 +1,8 @@
+ERRRS:
+- when superpacman, the phantoms do not detect a collision if they advance on superpacman and he is immobile (they don't die); they die if superpacman advance on them
+
+
+
 Main Game Loop
 
 In its main() the Controller creates all the objects, sets itself as an observer of ViewFX and sets ViewFX as an observer of GameState.
