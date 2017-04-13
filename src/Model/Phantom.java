@@ -175,7 +175,7 @@ public class Phantom extends Character{
                             if(!PacManPhantomCollision(pacman, this)) // pacman gets killed and we have to load the next memento
                                 return false;
                         }
-                        else{}
+                        else
                             moveInLab(nextX, nextY);
                     }
                         
