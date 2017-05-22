@@ -1,7 +1,7 @@
 
 - (DONE) Save random seed on create memento so that phantoms do the same thing after puttin a memento in plce
 
-- Allow super to eat walls
+- Allow super to eat wallsem
 
 - Add connection between cases on the extremes
 
