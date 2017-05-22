@@ -31,14 +31,11 @@ public class ComposedPhantom extends Phantom{
         pList = new ArrayList<>();
         add(p1);
         add(p2);
+        p1.deactivate();
+        p2.deactivate();
         lab().add(x, y, this);
         setType();
         
-        if(p1 instanceof ComposedPhantom)
-            ((ComposedPhantom)p1).stopDecompose();
-        
-        if(p2 instanceof ComposedPhantom)
-            ((ComposedPhantom)p2).stopDecompose();
         
         startDecompose();
     }
@@ -67,7 +64,8 @@ public class ComposedPhantom extends Phantom{
     }
     
     // to stop the timeline if the garbage collector takes time
-    void disconnect()
+    @Override
+    void deactivate()
     {
         stopDecompose();
     }
@@ -116,6 +114,12 @@ public class ComposedPhantom extends Phantom{
         lab().remove(p.getX(), p.getY(), p);
     }
     
+    @Override
+    void afterDecompose()
+    {
+        resetDecompose();
+    }
+    
     private void decompose()
     {
         if(changeDirection(false) != Dir.NONE)
@@ -126,9 +130,8 @@ public class ComposedPhantom extends Phantom{
                 p.y = this.y;
                 lab().add(p.x, p.y, p);
                 phantoms.add(p);
-
-                if(p instanceof ComposedPhantom)
-                    ((ComposedPhantom)p).resetDecompose();
+                
+                p.afterDecompose();
 
                 p.move(p.changeDirection(true));// change direction with ignorePhantoms set to false so that it tries to avoid them
             }

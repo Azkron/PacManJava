@@ -67,7 +67,7 @@ public class GameState extends Observable {
     {
         System.out.println("set memento");
         score = m.getScore();
-        lab.disconnect();// to clear the old labyrinth, otherwise the garbage collector can take some time and create bugs
+        lab.deactivate();// to clear the old labyrinth, otherwise the garbage collector can take some time and create bugs
         lab = m.getLab();
         lab.activate();
     }

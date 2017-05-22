@@ -58,16 +58,15 @@ public class Phantom extends Character{
     
     @Override
     Phantom deepCopy() {
-        if(this instanceof ComposedPhantom)
-            return ((ComposedPhantom) this).deepCopy();
-        else
-            return new Phantom(this);
+        return new Phantom(this);
     }
     
     @Override
     void activate() {
         phantoms.add(this);
     }
+    
+    void afterDecompose(){}
     
     
     int getPower()

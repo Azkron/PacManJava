@@ -34,12 +34,9 @@ public class PacMan extends Character {
     {
         super(x,y, true);
         if (INSTANCE == null) 
-        {
             INSTANCE = this;
-        } 
     
         startSuper();
-        
     }
     
     PacMan(PacMan pacman) 
@@ -65,7 +62,7 @@ public class PacMan extends Character {
     }
     
     // to stop the timeline if the garbage collector takes time
-    void disconnect()
+    void deactivate()
     {
         stopSuper();
     }

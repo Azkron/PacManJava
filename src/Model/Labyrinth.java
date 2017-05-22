@@ -30,21 +30,12 @@ public class Labyrinth {
     }
     
     
-    void disconnect()
+    void deactivate()
     {
-        System.out.println("disconnect");
-        PacMan.getInstance().disconnect();
+        PacMan.getInstance().deactivate();
         
         for(Phantom p : Phantom.getPhantoms())
-        {
-            System.out.println("for loop");
-            if(p instanceof ComposedPhantom)
-            {
-                System.out.println("disconnect phantom");
-                ComposedPhantom cp = (ComposedPhantom)p;
-                cp.disconnect();
-            }
-        }
+            p.deactivate();
         
         Phantom.reset();
         PacGum.reset();

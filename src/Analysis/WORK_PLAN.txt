@@ -1,4 +1,15 @@
 
-= add timeline to decompose time for Phantoms
 
-= add timeline to super for superPacman
+- Separate composite in 2 
+
+- Add connection between cases on the extremes
+
+- Add teleporters
+
+- Add phantom AI
+
+- Add randomly generated levels
+
+- Add menu with highscores
+
+- Add sound
