@@ -12,11 +12,13 @@ package Model;
 public class Memento {
     private final Labyrinth lab;
     private final int score;
+    private final long seed;
     
-    Memento(Labyrinth lab, int score)
+    Memento(Labyrinth lab, int score, long seed)
     {
         this.lab = lab;
         this.score = score;
+        this.seed = seed;
     }
     
     Labyrinth getLab()
@@ -27,5 +29,10 @@ public class Memento {
     int getScore()
     {
         return score;
+    }
+    
+    long getSeed()
+    {
+        return seed;
     }
 }

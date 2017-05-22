@@ -1,4 +1,7 @@
 
+- Save random seed on mushroom eat
+
+- Allow super to eat walls
 
 - Separate composite in 2 
 

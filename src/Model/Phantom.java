@@ -19,10 +19,31 @@ public class Phantom extends Character{
     
     static ArrayList<Phantom> phantoms = new ArrayList<>();
     static ArrayList<Phantom> phantomsToMove;
-    private static final Random rand = new Random();
+    private static long seed = System.currentTimeMillis();
+    private static Random rand = new Random();
+    //long rgenseed = System.currentTimeMillis();
+    //Random rgen = new Random(rgenseed);
     Dir dir;
     Type type;
     int power;
+    
+    static void setRandomSeed(long seed)
+    {
+        Phantom.seed = seed;
+        rand = new Random(seed);
+    }
+    
+    static long getRandomSeed()
+    {
+        return seed;
+    }
+    
+    static long newRandomSeed()
+    {
+        seed = System.currentTimeMillis();
+        rand = new Random(seed);
+        return seed;
+    }
     
     static void reset()
     {

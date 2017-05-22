@@ -57,9 +57,15 @@ public class GameState extends Observable {
         }
     } 
     
+    void createInitialMemento()
+    {
+        Memento m = new Memento(lab.deepCopy(), score, Phantom.getRandomSeed());
+        guardian.addMemento(m);
+    }
+    
     void createMemento()
     {
-        Memento m = new Memento(lab.deepCopy(), score);
+        Memento m = new Memento(lab.deepCopy(), score, Phantom.newRandomSeed());
         guardian.addMemento(m);
     }
     
@@ -67,6 +73,7 @@ public class GameState extends Observable {
     {
         System.out.println("set memento");
         score = m.getScore();
+        Phantom.setRandomSeed(m.getSeed());
         lab.deactivate();// to clear the old labyrinth, otherwise the garbage collector can take some time and create bugs
         lab = m.getLab();
         lab.activate();
