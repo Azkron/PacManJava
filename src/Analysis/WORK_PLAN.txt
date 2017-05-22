@@ -1,9 +1,7 @@
 
-- Save random seed on mushroom eat
+- (DONE) Save random seed on create memento so that phantoms do the same thing after puttin a memento in plce
 
 - Allow super to eat walls
-
-- Separate composite in 2 
 
 - Add connection between cases on the extremes
 
