@@ -64,7 +64,7 @@ public class Phantom extends Character{
         type = Type.PHANTOM;
         power = 1;
         phantoms.add(this);
-        dir = Dir.UP;
+        dir = Dir.randomDirection();
     }
     
     // Constructeur de copie pour le memento
@@ -74,7 +74,7 @@ public class Phantom extends Character{
         startY = p.startY;
         type = p.type;
         power = p.power;
-        dir = p.dir;
+        dir = Dir.randomDirection();
     }
     
     @Override
@@ -97,7 +97,6 @@ public class Phantom extends Character{
     
     static boolean movePhantoms() // returns false if pacman gets killed and we have to load the memento
     {
-        
         phantomsToMove = new ArrayList<>(phantoms);
         while(phantomsToMove.size() > 0)
         {

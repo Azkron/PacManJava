@@ -29,8 +29,14 @@ public enum Dir {
         return set;
     }
     
+    
     public static Dir randomDirection() {
-        return Dir.values()[rand.nextInt(Dir.values().length)];
+        return randomDirection(true);
+    }
+    
+    public static Dir randomDirection(boolean ignoreNone) {
+        int mod = ignoreNone ? 1 : 0;
+        return Dir.values()[rand.nextInt(Dir.values().length - mod)];
     }
     
 }

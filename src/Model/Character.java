@@ -57,24 +57,37 @@ public abstract class Character extends GameObject {
         int nextY = getY();
         switch(d){
             case UP:
-                return --nextY;
+                --nextY;
+                break;
             case DOWN:
-                return ++nextY;
-            default: 
-                return nextY;
+                ++nextY;
+                break;
         }
+        
+        if (nextY < 0)
+            nextY = lab().getYsize()-1;
+        else if( nextY >= lab().getYsize()) 
+            nextY = 0;
+        
+        return nextY;
     }
     
     int getNextX(Dir d) {
         int nextX = getX();
         switch(d){
             case LEFT:
-                return --nextX;
+                --nextX;
+                break;
             case RIGHT:
-                return ++nextX;
-            default: 
-                return nextX;
+                ++nextX;
+                break;
         }
+        if (nextX < 0)
+            nextX = lab().getXsize()-1;
+        else if( nextX >= lab().getXsize()) 
+            nextX = 0;
+        
+        return nextX;
     }
     
     
