@@ -187,7 +187,7 @@ public class Labyrinth {
         
         ArrayList<int[]> freePlaces = labFreePlaces(arrLab, true);
         Random r = new Random();
-        while(freePlaces.size() < arrLab.length*arrLab[0].length / 2)
+        while(freePlaces.size() < arrLab.length*arrLab[0].length / 2.5)
         {
             //int[] pos = freePlaces.get(r.nextInt(freePlaces.size()));
             int cornersIdx = r.nextInt(corners.size());

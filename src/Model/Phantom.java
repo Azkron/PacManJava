@@ -157,7 +157,24 @@ public class Phantom extends Character{
     }
     
     boolean move() {
+        CheckIntersection();
+        
         return move(getDir());
+    }
+    
+    private void CheckIntersection()
+    {
+        // check if intersection
+        int freeDirections = 0;
+        for(Dir d : Dir.values())
+        {
+            Case c = lab().get(getNextX(d), getNextY(d));
+            if(!c.isWall())
+                ++freeDirections;
+        }
+        
+        if(freeDirections > 2 && rand.nextFloat() > 0.5)
+            dir = changeDirection(false);
     }
     
     Dir getDir()
@@ -170,6 +187,7 @@ public class Phantom extends Character{
     boolean move(Dir d) {
         if(d != Dir.NONE)
         {
+            
             int nextY = getNextY(d);
             int nextX = getNextX(d);
             
