@@ -1,6 +1,12 @@
-ERRRS:
-- when superpacman, the phantoms do not detect a collision if they advance on superpacman and he is immobile (they don't die); they die if superpacman advance on them
+Additional Features
 
+- We save the random seed for the phantom movement in the mementos so that after going back to a memento the Phantoms will move the same way unless Pacman eats one of them. This way the PadMan becomes also a "memory" game as if the player remembers the movement of the phantoms he can plan accordingly.
+
+- We added random labyrinth generation. Now the labyrinth will be different every time you play!
+
+- If PacMan or the Phantoms reach the boundary of the labyrinth he will appear on the other side.
+
+- The Phantoms will also change directions on intersections, not just when encountering a wall.
 
 
 Main Game Loop
