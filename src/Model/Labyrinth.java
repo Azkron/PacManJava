@@ -184,7 +184,7 @@ public class Labyrinth {
         
         
         // craete phantoms
-        arrLab[arrLab.length-3 +1][arrLab[0].length-3] = 3;
+        arrLab[arrLab.length-3 +1][arrLab[0].length-3+1] = 3;
         
         ArrayList<int[]> freePlaces = labFreePlaces(arrLab, true);
         Random r = new Random();
