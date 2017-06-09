@@ -142,7 +142,7 @@ public class Labyrinth {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         };
         
-        tab = generateLab();
+        tab = generateRandomLab();
         xSize = tab[0].length;
         ySize = tab.length;
         
@@ -155,7 +155,7 @@ public class Labyrinth {
         //randomizePhantoms();
     }
     
-    private int[][] generateLab()
+    private int[][] generateRandomLab()
     {
         return generateLab(23,23);
     }
@@ -169,6 +169,7 @@ public class Labyrinth {
         // create half map, we will unfold it after so its simetrical
         int[][] arrLab = new int[height/2][width/2];
         ArrayList<int[]> corners = new ArrayList<>();
+        ArrayList<int[]> cornersUsed = new ArrayList<>();
         
         
         // set all to walls
@@ -195,21 +196,23 @@ public class Labyrinth {
             
             labSquare(arrLab, corners, pos[0], pos[1], r.nextInt(arrLab[0].length/2)+4,  r.nextInt(arrLab.length/2)+4, pos[2], pos[3]);
             
+            cornersUsed.add(corners.get(cornersIdx));
             corners.remove(cornersIdx);
+            
             freePlaces = labFreePlaces(arrLab, true);
         }
         
         // add mushroom
-        int cornersIdx = r.nextInt(corners.size());
-        int[] pos = corners.get(cornersIdx);
+        int cornersIdx = r.nextInt(cornersUsed.size());
+        int[] pos = cornersUsed.get(cornersIdx);
         arrLab[pos[1]][pos[0]] = 6;
-        corners.remove(cornersIdx);
+        cornersUsed.remove(cornersIdx);
         
         // add fuit
-        cornersIdx = r.nextInt(corners.size());
-        pos = corners.get(cornersIdx);
+        cornersIdx = r.nextInt(cornersUsed.size());
+        pos = cornersUsed.get(cornersIdx);
         arrLab[pos[1]][pos[0]] = 5;
-        corners.remove(cornersIdx);
+        cornersUsed.remove(cornersIdx);
         
        
         
@@ -230,11 +233,14 @@ public class Labyrinth {
         //pos = corners.get(cornersIdx);
         
         int dist = 0;
-        for(int[] i : corners)
+        for(int[] i : freePlaces)
         {
             int tDist = Math.abs(i[0] - (arrLab[0].length-3)) + Math.abs(i[1] - (arrLab.length-3));
             if(tDist > dist)
+            {
+                dist = tDist;
                 pos = i;
+            }
         }
         
         int xPac = pos[0];
@@ -243,7 +249,7 @@ public class Labyrinth {
             xPac = finalArrLab[0].length-xPac-1;
         if(r.nextFloat() < 0.5)
             yPac = finalArrLab[0].length-yPac-1;
-        finalArrLab[xPac][yPac] = 2;
+        finalArrLab[yPac][xPac] = 2;
         
         return finalArrLab;
     }
@@ -308,7 +314,8 @@ public class Labyrinth {
         pos[1] = y;
         pos[2] = xMod;
         pos[3] = -yMod;
-        if(pos[0] >= 0 && pos[0] < arrLab[0].length)
+        if(pos[1] >= 0 && pos[1] < arrLab.length &&
+                pos[0] >= 0 && pos[0] < arrLab[0].length)
             corners.add(pos);
         
         int[] pos2 = new int[4];
@@ -316,7 +323,8 @@ public class Labyrinth {
         pos2[1] = y+(height-1)*xMod;
         pos2[2] = -xMod;
         pos2[3] = yMod;
-        if(pos2[1] >= 0 && pos2[1] < arrLab.length)
+        if(pos2[1] >= 0 && pos2[1] < arrLab.length &&
+                pos2[0] >= 0 && pos2[0] < arrLab[0].length)
             corners.add(pos2);
         
         int[] pos3 = new int[4];
